@@ -97,6 +97,7 @@
 		9F067B74178406FD0063A289 /* whitearrow_bckg_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F067B1E178406FD0063A289 /* whitearrow_bckg_icon.png */; };
 		9F067B75178406FD0063A289 /* whitearrow_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F067B1F178406FD0063A289 /* whitearrow_icon.png */; };
 		9F067B76178406FD0063A289 /* yellow_light.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F067B20178406FD0063A289 /* yellow_light.png */; };
+		9F067B7C17840E950063A289 /* BobMainCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F067B7B17840E950063A289 /* BobMainCell.xib */; };
 		9F1ECF7D1783F67700801CB5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F1ECF7C1783F67700801CB5 /* UIKit.framework */; };
 		9F1ECF7F1783F67700801CB5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F1ECF7E1783F67700801CB5 /* Foundation.framework */; };
 		9F1ECF811783F67700801CB5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F1ECF801783F67700801CB5 /* CoreGraphics.framework */; };
@@ -107,6 +108,7 @@
 		9F1ECF911783F67700801CB5 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F1ECF901783F67700801CB5 /* Default@2x.png */; };
 		9F1ECF931783F67700801CB5 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F1ECF921783F67700801CB5 /* Default-568h@2x.png */; };
 		9F1ECF9A1783F86700801CB5 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F1ECF991783F86700801CB5 /* MainWindow.xib */; };
+		9F4095111785529B000F2A44 /* FolderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F4095101785529A000F2A44 /* FolderCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -202,6 +204,7 @@
 		9F067B1E178406FD0063A289 /* whitearrow_bckg_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = whitearrow_bckg_icon.png; sourceTree = "<group>"; };
 		9F067B1F178406FD0063A289 /* whitearrow_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = whitearrow_icon.png; sourceTree = "<group>"; };
 		9F067B20178406FD0063A289 /* yellow_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yellow_light.png; sourceTree = "<group>"; };
+		9F067B7B17840E950063A289 /* BobMainCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BobMainCell.xib; path = ../BobMainCell.xib; sourceTree = "<group>"; };
 		9F1ECF791783F67700801CB5 /* DashBoard1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DashBoard1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F1ECF7C1783F67700801CB5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		9F1ECF7E1783F67700801CB5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -216,6 +219,7 @@
 		9F1ECF901783F67700801CB5 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		9F1ECF921783F67700801CB5 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		9F1ECF991783F86700801CB5 /* MainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
+		9F4095101785529A000F2A44 /* FolderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FolderCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -355,11 +359,10 @@
 		9F1ECF821783F67700801CB5 /* DashBoard1 */ = {
 			isa = PBXGroup;
 			children = (
+				9F40950F17851F56000F2A44 /* DashBoard */,
 				9F1ECF8B1783F67700801CB5 /* BobAppDelegate.h */,
 				9F1ECF8C1783F67700801CB5 /* BobAppDelegate.m */,
 				9F1ECF991783F86700801CB5 /* MainWindow.xib */,
-				9F067AC0178402150063A289 /* BobRootViewController.h */,
-				9F067AC1178402160063A289 /* BobRootViewController.m */,
 				9F067AC2178402160063A289 /* BobRootViewController.xib */,
 				9F067AC5178403C30063A289 /* BobFolderDetailViewController.h */,
 				9F067AC6178403C30063A289 /* BobFolderDetailViewController.m */,
@@ -382,6 +385,17 @@
 				9F1ECF921783F67700801CB5 /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9F40950F17851F56000F2A44 /* DashBoard */ = {
+			isa = PBXGroup;
+			children = (
+				9F067AC0178402150063A289 /* BobRootViewController.h */,
+				9F067AC1178402160063A289 /* BobRootViewController.m */,
+				9F067B7B17840E950063A289 /* BobMainCell.xib */,
+				9F4095101785529A000F2A44 /* FolderCell.xib */,
+			);
+			name = DashBoard;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -529,6 +543,8 @@
 				9F067B74178406FD0063A289 /* whitearrow_bckg_icon.png in Resources */,
 				9F067B75178406FD0063A289 /* whitearrow_icon.png in Resources */,
 				9F067B76178406FD0063A289 /* yellow_light.png in Resources */,
+				9F067B7C17840E950063A289 /* BobMainCell.xib in Resources */,
+				9F4095111785529B000F2A44 /* FolderCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -623,6 +639,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DashBoard1/DashBoard1-Prefix.pch";
 				INFOPLIST_FILE = "DashBoard1/DashBoard1-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -635,6 +652,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DashBoard1/DashBoard1-Prefix.pch";
 				INFOPLIST_FILE = "DashBoard1/DashBoard1-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

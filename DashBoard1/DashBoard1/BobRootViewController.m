@@ -9,33 +9,19 @@
 #import "BobRootViewController.h"
 #import "BobFolderDetailViewController.h"
 
-@implementation BobRootViewController
+#define LABELTAG 100
+#define IMAGETAG 102
+#define TEXTFIELDTAG 103
 
-- (void)createMyFolderData
+
+@interface BobRootViewController()
 {
-    NSMutableArray *totalFolder;
-    NSMutableArray *myFolders;
-    NSMutableArray *myTags;
-    
-    myFolderSections = [[NSMutableArray alloc] initWithObjects:@"", @"My Folder", @"MyTags", nil];
-    totalFolder = [[NSMutableArray alloc] init];
-    myFolders = [[NSMutableArray alloc] init];
-    myTags = [[NSMutableArray alloc] init];
-    
-    [totalFolder addObject:[[NSMutableDictionary alloc] initWithObjectsAndKeys:@"Recording", @"name", @"recording_icon.png", @"picture", nil]];
-    
-    //we will need to change this section just for add and remove folder dynamiclly
-    [myFolders addObject:[[NSMutableDictionary alloc] initWithObjectsAndKeys:@"snapshot1", @"name",  @"folder_icon.png", @"picture", nil]];
-    [myFolders addObject:[[NSMutableDictionary alloc] initWithObjectsAndKeys:@"snapshot2", @"name",  @"folder_icon.png", @"picture", nil]];
-    [myFolders addObject:[[NSMutableDictionary alloc] initWithObjectsAndKeys:@"snapshot3", @"name",  @"folder_icon.png", @"picture", nil]];
-    [myFolders addObject:[[NSMutableDictionary alloc] initWithObjectsAndKeys:@"snapshot4", @"name",  @"folder_icon.png", @"picture", nil]];
-    
-    [myTags addObject:[[NSMutableDictionary alloc] initWithObjectsAndKeys:@"My Tags", @"name", @"toolset_tag.png", @"picture", nil]];
-    
-    myFolderData = [[NSMutableArray alloc] initWithObjects:totalFolder, myFolders, myTags, nil];
-    
-    
+    NSMutableArray *myFolder;
 }
+
+@end
+
+@implementation BobRootViewController
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -48,91 +34,120 @@
 
 - (void)viewDidLoad
 {
-    [self createMyFolderData];
     [super viewDidLoad];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    myFolderSections = [[NSMutableArray alloc] initWithObjects:@"", @"My Folder", @"My Tags" ,nil];
+    myFolder = [[NSMutableArray alloc] init];
+    [myFolder addObject:@"Enter new folder name"];
+
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    // Return the number of sections.
-    return [myFolderSections count];
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section.
-    return [[myFolderData objectAtIndex:section] count];
+    if(section==1)
+        return myFolder.count;
+    else
+        return 1;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+
+-(UITableViewCell*)recordingSection:(UITableView*)tableView{
+    static NSString *str=@"RecordingCell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:str];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = (UITableViewCell*)[[[NSBundle mainBundle] loadNibNamed:@"BobMainCell" owner:self options:nil] lastObject];
+        UILabel *label=(UILabel*)[cell viewWithTag:100];
+        label.text=@"          Recordings";
+        label.backgroundColor = [UIColor brownColor];
+        UIImageView *image = (UIImageView *)[cell viewWithTag:102];
+        [image setImage:[UIImage imageNamed:@"recording_icon.png"]];
     }
-    
-    // Configure the cell...
-    [[cell textLabel] setText:[[[myFolderData objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"name"]];
-    [[cell imageView] setImage:[UIImage imageNamed:[[[myFolderData objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"picture"]]];
-    
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
     return cell;
 }
 
+-(UITableViewCell*)tagSection:(UITableView*)tableView{
+    static NSString *str=@"TagCell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:str];
+    if (cell == nil) {
+        cell = (UITableViewCell*)[[[NSBundle mainBundle] loadNibNamed:@"BobMainCell" owner:self options:nil] lastObject];
+        UILabel *label=(UILabel*)[cell viewWithTag:LABELTAG];
+        label.text=@"          Tag";
+        label.backgroundColor = [UIColor grayColor];
+        
+        UIImageView *image = (UIImageView *)[cell viewWithTag:IMAGETAG];
+        [image setImage:[UIImage imageNamed:@"tag_icon.png"]];
+    }
+    return cell;
+}
 
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [textField resignFirstResponder];
+    
+    NSString *folderName= [[NSString alloc] initWithFormat:@"          %@", textField.text];
+
+    if (![textField.text isEqualToString:@""]) {
+        [myFolder insertObject:folderName atIndex:myFolder.count-1];
+    }
+
+    [self.tableView reloadData];
+    return YES;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    //Recording section
+    if(indexPath.section==0){
+        return [self recordingSection:tableView];
+    }
+    
+    //Tag section
+    else if(indexPath.section==2){
+        return [self tagSection:tableView];
+    }
+    
+    //the last folder section
+    else if(indexPath.row == myFolder.count-1){
+        static NSString *lastCellId=@"LastCellId";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:lastCellId];
+        if (cell == nil) {
+            cell = (UITableViewCell*)[[[NSBundle mainBundle] loadNibNamed:@"FolderCell" owner:self options:nil] lastObject];
+            UITextField *textField=[cell viewWithTag:TEXTFIELDTAG];
+            textField.delegate=self;
+        }
+
+        return cell;
+    }
+    else{
+        static NSString *BaseCellId=@"BaseCell";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:BaseCellId];
+        if (cell == nil) {
+            cell = (UITableViewCell*)[[[NSBundle mainBundle] loadNibNamed:@"BobMainCell" owner:self options:nil] lastObject];
+        }
+        UIImageView *image = (UIImageView *)[cell viewWithTag:IMAGETAG];
+        [image setImage:[UIImage imageNamed:@"folder_icon.png"]];
+        UILabel *label=(UILabel*)[cell viewWithTag:LABELTAG];
+        label.text=[myFolder objectAtIndex:indexPath.row];
+    
+        return cell;
+    }  
+     
+}
+
+
+//
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     return [myFolderSections objectAtIndex:section];
 }
-/*
- // Override to support conditional editing of the table view.
- - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the specified item to be editable.
- return YES;
- }
- */
 
-/*
- // Override to support editing the table view.
- - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
- {
- if (editingStyle == UITableViewCellEditingStyleDelete) {
- // Delete the row from the data source
- [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
- }
- else if (editingStyle == UITableViewCellEditingStyleInsert) {
- // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
- }
- }
- */
-
-/*
- // Override to support rearranging the table view.
- - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
- {
- }
- */
-
-/*
- // Override to support conditional rearranging of the table view.
- - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the item to be re-orderable.
- return YES;
- }
- */
 
 #pragma mark - Table view delegate
 
@@ -146,8 +161,6 @@
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
     BobFolderDetailViewController *folderDetail = [[BobFolderDetailViewController alloc] initWithNibName:@"BobFolderDetailViewController" bundle:nil];
-    
-    folderDetail.title  = [[[myFolderData objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"name"];
     [self.navigationController pushViewController:folderDetail animated:YES];
 }
 

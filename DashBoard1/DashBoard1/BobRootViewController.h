@@ -8,12 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BobRootViewController : UITableViewController
+@interface BobRootViewController : UITableViewController<UITableViewDataSource, UITableViewDelegate,UITextFieldDelegate>
 {
-    NSMutableArray *myFolderData;
     NSMutableArray *myFolderSections;
+    NSMutableArray *myFolderData;
 }
-
--(void)createMyFolderData;
-
 @end
