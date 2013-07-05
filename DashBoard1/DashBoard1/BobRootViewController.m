@@ -11,6 +11,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 #define LABELTAG 100
+#define BUTTONTAG 101
 #define IMAGETAG 102
 #define TEXTFIELDTAG 103
 #define BLANKINFRONT @"          "
@@ -58,18 +59,25 @@
         return 1;
 }
 
+- (void)detailInfo:(id)sender{
+    BobFolderDetailViewController *folderDetail = [[BobFolderDetailViewController alloc] initWithNibName:@"BobFolderDetailViewController" bundle:nil];
+    [self.navigationController pushViewController:folderDetail animated:YES];
+}
 
 -(UITableViewCell*)recordingSection:(UITableView*)tableView{
     static NSString *str=@"RecordingCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:str];
     if (cell == nil) {
         cell = (UITableViewCell*)[[[NSBundle mainBundle] loadNibNamed:@"BobMainCell" owner:self options:nil] lastObject];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         UILabel *label=(UILabel*)[cell viewWithTag:100];
         label.text = [[NSString alloc] initWithFormat:@"%@Recording", BLANKINFRONT];
         label.backgroundColor = [UIColor brownColor];
         label.layer.cornerRadius = 10;
         UIImageView *image = (UIImageView *)[cell viewWithTag:102];
         [image setImage:[UIImage imageNamed:@"recording_icon.png"]];
+        UIButton *button = (UIButton *)[cell viewWithTag:BUTTONTAG];
+        [button addTarget:self action:@selector(detailInfo:) forControlEvents:UIControlEventTouchUpInside];
     }
     
     return cell;
@@ -80,6 +88,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:str];
     if (cell == nil) {
         cell = (UITableViewCell*)[[[NSBundle mainBundle] loadNibNamed:@"BobMainCell" owner:self options:nil] lastObject];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         UILabel *label=(UILabel*)[cell viewWithTag:LABELTAG];
         label.text = [[NSString alloc] initWithFormat:@"%@Tag", BLANKINFRONT];
         label.backgroundColor = [UIColor grayColor];
@@ -87,12 +96,39 @@
     
         UIImageView *image = (UIImageView *)[cell viewWithTag:IMAGETAG];
         [image setImage:[UIImage imageNamed:@"tag_icon.png"]];
+        UIButton *button = (UIButton *)[cell viewWithTag:BUTTONTAG];
+        [button addTarget:self action:@selector(detailInfo:) forControlEvents:UIControlEventTouchUpInside];
     }
     return cell;
 }
 
-- (void)deleteBeginningBlank:(NSString *)name{
+-(UITableViewCell *)myFolderTextFieldSection:(UITableView *)tableView{
+    static NSString *lastCellId=@"LastCellId";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:lastCellId];
+    if (cell == nil) {
+        cell = (UITableViewCell*)[[[NSBundle mainBundle] loadNibNamed:@"FolderCell" owner:self options:nil] lastObject];
+        UITextField *textField=[cell viewWithTag:TEXTFIELDTAG];
+        textField.layer.cornerRadius = 10;
+        textField.delegate=self;
+    }
+    return cell;
+}
+
+-(UITableViewCell *)myFolderSection:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath{
+    static NSString *BaseCellId=@"BaseCell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:BaseCellId];
+    if (cell == nil) {
+        cell = (UITableViewCell*)[[[NSBundle mainBundle] loadNibNamed:@"BobMainCell" owner:self options:nil] lastObject];
+    }
+    UIImageView *image = (UIImageView *)[cell viewWithTag:IMAGETAG];
+    [image setImage:[UIImage imageNamed:@"folder_icon.png"]];
+    UILabel *label=(UILabel*)[cell viewWithTag:LABELTAG];
+    label.text=[myFolder objectAtIndex:indexPath.row];
+    label.layer.cornerRadius = 10;
+    UIButton *button = (UIButton *)[cell viewWithTag:BUTTONTAG];
+    [button addTarget:self action:@selector(detailInfo:) forControlEvents:UIControlEventTouchUpInside];
     
+    return cell;
 }
 
 //use c++ language to delete the blank beginning
@@ -151,36 +187,14 @@
     
     //the last folder section
     else if(indexPath.row == myFolder.count-1){
-        static NSString *lastCellId=@"LastCellId";
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:lastCellId];
-        if (cell == nil) {
-            cell = (UITableViewCell*)[[[NSBundle mainBundle] loadNibNamed:@"FolderCell" owner:self options:nil] lastObject];
-            UITextField *textField=[cell viewWithTag:TEXTFIELDTAG];
-            textField.layer.cornerRadius = 10;
-            textField.delegate=self;
-        }
-
-        return cell;
+        return [self myFolderTextFieldSection:tableView];
     }
     else{
-        static NSString *BaseCellId=@"BaseCell";
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:BaseCellId];
-        if (cell == nil) {
-            cell = (UITableViewCell*)[[[NSBundle mainBundle] loadNibNamed:@"BobMainCell" owner:self options:nil] lastObject];
-        }
-        UIImageView *image = (UIImageView *)[cell viewWithTag:IMAGETAG];
-        [image setImage:[UIImage imageNamed:@"folder_icon.png"]];
-        UILabel *label=(UILabel*)[cell viewWithTag:LABELTAG];
-        label.text=[myFolder objectAtIndex:indexPath.row];
-        label.layer.cornerRadius = 10;
-    
-        return cell;
+        return [self myFolderSection:tableView indexPath:indexPath];
     }  
      
 }
 
-
-//
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     return [myFolderSections objectAtIndex:section];
@@ -191,19 +205,19 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
     if (indexPath.section == 1 && indexPath.row == myFolder.count-1) {
-        
+        //made the textField no responding
+        //...
+    }
+    else if (indexPath.section == 1 && indexPath.row != myFolder.count-1){
+        //need to improve
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Message" message:@"Do you want to delete the folder" delegate:self cancelButtonTitle:@"no" otherButtonTitles:@"yes", nil];
+        [alert show];
+        [myFolder removeObjectAtIndex:indexPath.row];
+        [self.tableView reloadData];
     }
     else{
-        BobFolderDetailViewController *folderDetail = [[BobFolderDetailViewController alloc] initWithNibName:@"BobFolderDetailViewController" bundle:nil];
-        [self.navigationController pushViewController:folderDetail animated:YES];
+        
     }
 }
 
