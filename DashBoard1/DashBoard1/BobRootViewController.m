@@ -13,6 +13,7 @@
 #define LABELTAG 100
 #define IMAGETAG 102
 #define TEXTFIELDTAG 103
+#define BLANKINFRONT @"          "
 
 
 @interface BobRootViewController()
@@ -64,7 +65,7 @@
     if (cell == nil) {
         cell = (UITableViewCell*)[[[NSBundle mainBundle] loadNibNamed:@"BobMainCell" owner:self options:nil] lastObject];
         UILabel *label=(UILabel*)[cell viewWithTag:100];
-        label.text=@"          Recordings";
+        label.text = [[NSString alloc] initWithFormat:@"%@Recording", BLANKINFRONT];
         label.backgroundColor = [UIColor brownColor];
         label.layer.cornerRadius = 10;
         UIImageView *image = (UIImageView *)[cell viewWithTag:102];
@@ -80,7 +81,7 @@
     if (cell == nil) {
         cell = (UITableViewCell*)[[[NSBundle mainBundle] loadNibNamed:@"BobMainCell" owner:self options:nil] lastObject];
         UILabel *label=(UILabel*)[cell viewWithTag:LABELTAG];
-        label.text=@"          Tag";
+        label.text = [[NSString alloc] initWithFormat:@"%@Tag", BLANKINFRONT];
         label.backgroundColor = [UIColor grayColor];
         label.layer.cornerRadius = 10;
     
@@ -94,9 +95,12 @@
     
 }
 
-//use c++ language to delete the blank beginning and ending
+//use c++ language to delete the blank beginning
 -(void)deleteSpan:(UITextField *)textField{
+    //convert the textField.text from NSSttring* to char*
     char *str = [textField.text UTF8String];
+    
+    //the algorithm about delete blank beginning char
     int len = strlen(str);
     if (len <=0 ) {
         return;
@@ -114,6 +118,7 @@
         textField.text = @"";
     }
     else{
+        //convert myStr from char* to NSString and give it to textField.text
         textField.text = [NSString stringWithUTF8String:myStr];
     }
 }
@@ -122,11 +127,8 @@
     [textField resignFirstResponder];
     
     [self deleteSpan:textField];
-    NSString *folderName= [[NSString alloc] initWithFormat:@"          %@", textField.text];
+    NSString *folderName= [[NSString alloc] initWithFormat:@"%@%@", BLANKINFRONT, textField.text];
 
-    //if input textfield with @"    ",shouldn't return a folder yet!
-    //so need to change there
-    //first delete the beginning blank
     if (![textField.text isEqualToString:@""]) {
         [myFolder insertObject:folderName atIndex:myFolder.count-1];
     }
