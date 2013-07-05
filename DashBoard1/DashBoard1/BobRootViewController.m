@@ -8,6 +8,7 @@
 
 #import "BobRootViewController.h"
 #import "BobFolderDetailViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 #define LABELTAG 100
 #define IMAGETAG 102
@@ -65,6 +66,7 @@
         UILabel *label=(UILabel*)[cell viewWithTag:100];
         label.text=@"          Recordings";
         label.backgroundColor = [UIColor brownColor];
+        label.layer.cornerRadius = 10;
         UIImageView *image = (UIImageView *)[cell viewWithTag:102];
         [image setImage:[UIImage imageNamed:@"recording_icon.png"]];
     }
@@ -80,19 +82,51 @@
         UILabel *label=(UILabel*)[cell viewWithTag:LABELTAG];
         label.text=@"          Tag";
         label.backgroundColor = [UIColor grayColor];
-        
+        label.layer.cornerRadius = 10;
+    
         UIImageView *image = (UIImageView *)[cell viewWithTag:IMAGETAG];
         [image setImage:[UIImage imageNamed:@"tag_icon.png"]];
     }
     return cell;
 }
 
+- (void)deleteBeginningBlank:(NSString *)name{
+    
+}
+
+//use c++ language to delete the blank beginning and ending
+-(void)deleteSpan:(UITextField *)textField{
+    char *str = [textField.text UTF8String];
+    int len = strlen(str);
+    if (len <=0 ) {
+        return;
+    }
+    char *myStr = NULL;
+    for (int i=0; i<len; ++i) {
+        if (str[i] == ' ') {
+        }
+        else{
+            myStr = &str[i];
+            break;
+        }
+    }
+    if (myStr==NULL) {
+        textField.text = @"";
+    }
+    else{
+        textField.text = [NSString stringWithUTF8String:myStr];
+    }
+}
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
     [textField resignFirstResponder];
     
+    [self deleteSpan:textField];
     NSString *folderName= [[NSString alloc] initWithFormat:@"          %@", textField.text];
 
+    //if input textfield with @"    ",shouldn't return a folder yet!
+    //so need to change there
+    //first delete the beginning blank
     if (![textField.text isEqualToString:@""]) {
         [myFolder insertObject:folderName atIndex:myFolder.count-1];
     }
@@ -120,6 +154,7 @@
         if (cell == nil) {
             cell = (UITableViewCell*)[[[NSBundle mainBundle] loadNibNamed:@"FolderCell" owner:self options:nil] lastObject];
             UITextField *textField=[cell viewWithTag:TEXTFIELDTAG];
+            textField.layer.cornerRadius = 10;
             textField.delegate=self;
         }
 
@@ -135,6 +170,7 @@
         [image setImage:[UIImage imageNamed:@"folder_icon.png"]];
         UILabel *label=(UILabel*)[cell viewWithTag:LABELTAG];
         label.text=[myFolder objectAtIndex:indexPath.row];
+        label.layer.cornerRadius = 10;
     
         return cell;
     }  
@@ -160,8 +196,13 @@
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
-    BobFolderDetailViewController *folderDetail = [[BobFolderDetailViewController alloc] initWithNibName:@"BobFolderDetailViewController" bundle:nil];
-    [self.navigationController pushViewController:folderDetail animated:YES];
+    if (indexPath.section == 1 && indexPath.row == myFolder.count-1) {
+        
+    }
+    else{
+        BobFolderDetailViewController *folderDetail = [[BobFolderDetailViewController alloc] initWithNibName:@"BobFolderDetailViewController" bundle:nil];
+        [self.navigationController pushViewController:folderDetail animated:YES];
+    }
 }
 
 @end
