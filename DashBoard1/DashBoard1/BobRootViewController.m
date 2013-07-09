@@ -122,6 +122,7 @@
     }
     UIImageView *image = (UIImageView *)[cell viewWithTag:IMAGETAG];
     [image setImage:[UIImage imageNamed:@"folder_icon.png"]];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     UILabel *label=(UILabel*)[cell viewWithTag:LABELTAG];
     label.text=[myFolder objectAtIndex:indexPath.row];
     label.layer.cornerRadius = 10;
@@ -131,7 +132,7 @@
     return cell;
 }
 
-//use c++ language to delete the blank beginning
+//use c language to delete the blank beginning
 -(void)deleteSpan:(UITextField *)textField{
     //convert the textField.text from NSSttring* to char*
     char *str = [textField.text UTF8String];
@@ -211,10 +212,8 @@
     }
     else if (indexPath.section == 1 && indexPath.row != myFolder.count-1){
         //need to improve
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Message" message:@"Do you want to delete the folder" delegate:self cancelButtonTitle:@"no" otherButtonTitles:@"yes", nil];
-        [alert show];
-        [myFolder removeObjectAtIndex:indexPath.row];
-        [self.tableView reloadData];
+        //mabye delete the selected folder
+        
     }
     else{
         
