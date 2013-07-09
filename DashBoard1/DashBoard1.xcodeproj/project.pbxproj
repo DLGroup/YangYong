@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9F067AC3178402160063A289 /* BobRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F067AC1178402160063A289 /* BobRootViewController.m */; };
-		9F067AC4178402160063A289 /* BobRootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F067AC2178402160063A289 /* BobRootViewController.xib */; };
 		9F067AC8178403C30063A289 /* BobFolderDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F067AC6178403C30063A289 /* BobFolderDetailViewController.m */; };
 		9F067AC9178403C30063A289 /* BobFolderDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F067AC7178403C30063A289 /* BobFolderDetailViewController.xib */; };
 		9F067B21178406FD0063A289 /* add_tag.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F067ACB178406FD0063A289 /* add_tag.png */; };
@@ -110,12 +108,14 @@
 		9F1ECF9A1783F86700801CB5 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F1ECF991783F86700801CB5 /* MainWindow.xib */; };
 		9F4095111785529B000F2A44 /* FolderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F4095101785529A000F2A44 /* FolderCell.xib */; };
 		9F56E1A017865F930075449C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F56E19F17865F930075449C /* QuartzCore.framework */; };
+		9F59F0E4178BB0FD00226EC3 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F59F0E2178BB0FD00226EC3 /* RootViewController.m */; };
+		9F59F0E5178BB0FD00226EC3 /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F59F0E3178BB0FD00226EC3 /* RootViewController.xib */; };
+		9F59F0E7178BB95300226EC3 /* SoundCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F59F0E6178BB95200226EC3 /* SoundCell.xib */; };
+		9F59F0E9178BD18F00226EC3 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F59F0E8178BD18F00226EC3 /* AVFoundation.framework */; };
+		9F59F0EB178BD19F00226EC3 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F59F0EA178BD19F00226EC3 /* AudioToolbox.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		9F067AC0178402150063A289 /* BobRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BobRootViewController.h; sourceTree = "<group>"; };
-		9F067AC1178402160063A289 /* BobRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BobRootViewController.m; sourceTree = "<group>"; };
-		9F067AC2178402160063A289 /* BobRootViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BobRootViewController.xib; sourceTree = "<group>"; };
 		9F067AC5178403C30063A289 /* BobFolderDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BobFolderDetailViewController.h; sourceTree = "<group>"; };
 		9F067AC6178403C30063A289 /* BobFolderDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BobFolderDetailViewController.m; sourceTree = "<group>"; };
 		9F067AC7178403C30063A289 /* BobFolderDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BobFolderDetailViewController.xib; sourceTree = "<group>"; };
@@ -222,6 +222,12 @@
 		9F1ECF991783F86700801CB5 /* MainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		9F4095101785529A000F2A44 /* FolderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FolderCell.xib; sourceTree = "<group>"; };
 		9F56E19F17865F930075449C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		9F59F0E1178BB0FD00226EC3 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
+		9F59F0E2178BB0FD00226EC3 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
+		9F59F0E3178BB0FD00226EC3 /* RootViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RootViewController.xib; sourceTree = "<group>"; };
+		9F59F0E6178BB95200226EC3 /* SoundCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SoundCell.xib; sourceTree = "<group>"; };
+		9F59F0E8178BD18F00226EC3 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		9F59F0EA178BD19F00226EC3 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -229,6 +235,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F59F0EB178BD19F00226EC3 /* AudioToolbox.framework in Frameworks */,
+				9F59F0E9178BD18F00226EC3 /* AVFoundation.framework in Frameworks */,
 				9F56E1A017865F930075449C /* QuartzCore.framework in Frameworks */,
 				9F1ECF7D1783F67700801CB5 /* UIKit.framework in Frameworks */,
 				9F1ECF7F1783F67700801CB5 /* Foundation.framework in Frameworks */,
@@ -335,6 +343,8 @@
 		9F1ECF701783F67700801CB5 = {
 			isa = PBXGroup;
 			children = (
+				9F59F0EA178BD19F00226EC3 /* AudioToolbox.framework */,
+				9F59F0E8178BD18F00226EC3 /* AVFoundation.framework */,
 				9F1ECF821783F67700801CB5 /* DashBoard1 */,
 				9F1ECF7B1783F67700801CB5 /* Frameworks */,
 				9F1ECF7A1783F67700801CB5 /* Products */,
@@ -367,7 +377,6 @@
 				9F1ECF8B1783F67700801CB5 /* BobAppDelegate.h */,
 				9F1ECF8C1783F67700801CB5 /* BobAppDelegate.m */,
 				9F1ECF991783F86700801CB5 /* MainWindow.xib */,
-				9F067AC2178402160063A289 /* BobRootViewController.xib */,
 				9F067AC5178403C30063A289 /* BobFolderDetailViewController.h */,
 				9F067AC6178403C30063A289 /* BobFolderDetailViewController.m */,
 				9F067AC7178403C30063A289 /* BobFolderDetailViewController.xib */,
@@ -394,10 +403,12 @@
 		9F40950F17851F56000F2A44 /* DashBoard */ = {
 			isa = PBXGroup;
 			children = (
-				9F067AC0178402150063A289 /* BobRootViewController.h */,
-				9F067AC1178402160063A289 /* BobRootViewController.m */,
+				9F59F0E1178BB0FD00226EC3 /* RootViewController.h */,
+				9F59F0E2178BB0FD00226EC3 /* RootViewController.m */,
+				9F59F0E3178BB0FD00226EC3 /* RootViewController.xib */,
 				9F067B7B17840E950063A289 /* BobMainCell.xib */,
 				9F4095101785529A000F2A44 /* FolderCell.xib */,
+				9F59F0E6178BB95200226EC3 /* SoundCell.xib */,
 			);
 			name = DashBoard;
 			sourceTree = "<group>";
@@ -459,7 +470,6 @@
 				9F1ECF911783F67700801CB5 /* Default@2x.png in Resources */,
 				9F1ECF931783F67700801CB5 /* Default-568h@2x.png in Resources */,
 				9F1ECF9A1783F86700801CB5 /* MainWindow.xib in Resources */,
-				9F067AC4178402160063A289 /* BobRootViewController.xib in Resources */,
 				9F067AC9178403C30063A289 /* BobFolderDetailViewController.xib in Resources */,
 				9F067B21178406FD0063A289 /* add_tag.png in Resources */,
 				9F067B22178406FD0063A289 /* arrow_icon.png in Resources */,
@@ -549,6 +559,8 @@
 				9F067B76178406FD0063A289 /* yellow_light.png in Resources */,
 				9F067B7C17840E950063A289 /* BobMainCell.xib in Resources */,
 				9F4095111785529B000F2A44 /* FolderCell.xib in Resources */,
+				9F59F0E5178BB0FD00226EC3 /* RootViewController.xib in Resources */,
+				9F59F0E7178BB95300226EC3 /* SoundCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -561,8 +573,8 @@
 			files = (
 				9F1ECF891783F67700801CB5 /* main.m in Sources */,
 				9F1ECF8D1783F67700801CB5 /* BobAppDelegate.m in Sources */,
-				9F067AC3178402160063A289 /* BobRootViewController.m in Sources */,
 				9F067AC8178403C30063A289 /* BobFolderDetailViewController.m in Sources */,
+				9F59F0E4178BB0FD00226EC3 /* RootViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

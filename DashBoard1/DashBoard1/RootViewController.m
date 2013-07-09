@@ -1,12 +1,12 @@
 //
-//  BobRootViewController.m
+//  RootViewController.m
 //  DashBoard1
 //
-//  Created by snapshot on 13-7-3.
+//  Created by snapshot on 13-7-9.
 //  Copyright (c) 2013年 Dilun. All rights reserved.
 //
 
-#import "BobRootViewController.h"
+#import "RootViewController.h"
 #import "BobFolderDetailViewController.h"
 #import <QuartzCore/QuartzCore.h>
 
@@ -16,19 +16,22 @@
 #define TEXTFIELDTAG 103
 #define BLANKINFRONT @"          "
 
-
-@interface BobRootViewController()
+@interface RootViewController ()
 {
     NSMutableArray *myFolder;
+    CGPoint point;
+    NSInteger YPoint;
 }
 
 @end
 
-@implementation BobRootViewController
+@implementation RootViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
+@synthesize tableView;
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithStyle:style];
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
     }
@@ -38,10 +41,39 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    // Do any additional setup after loading the view from its nib.
     myFolderSections = [[NSMutableArray alloc] initWithObjects:@"", @"My Folder", @"My Tags" ,nil];
     myFolder = [[NSMutableArray alloc] init];
     [myFolder addObject:@"Enter new folder name"];
+//    //observe keyboard hide and show notification to resize the text view
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+}
 
+//- (void)keyboardWillShow:(NSNotification *)notification{
+//    NSDictionary *userInfo = [notification userInfo];
+//    NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
+//    CGRect keyboardRect = [aValue CGRectValue];
+//    keyboardRect = [self.view convertRect:keyboardRect fromView:nil];
+//    
+//    CGFloat keyboardTop = keyboardRect.origin.y;
+//    CGRect newTextViewFrame = self.view.bounds;
+//    newTextViewFrame.size.height = keyboardTop - self.view.bounds.origin.y;
+//    
+//    NSValue *animationDurationValue = [userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
+//    NSTimeInterval animationDuration;
+//    [animationDurationValue getValue:&animationDuration];
+//    
+//    [UIView beginAnimations:nil context:NULL];
+//    [UIView setAnimationDuration:animationDuration];
+//    
+//    
+//}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Table view data source
@@ -93,7 +125,7 @@
         label.text = [[NSString alloc] initWithFormat:@"%@Tag", BLANKINFRONT];
         label.backgroundColor = [UIColor grayColor];
         label.layer.cornerRadius = 10;
-    
+        
         UIImageView *image = (UIImageView *)[cell viewWithTag:IMAGETAG];
         [image setImage:[UIImage imageNamed:@"tag_icon.png"]];
         UIButton *button = (UIButton *)[cell viewWithTag:BUTTONTAG];
@@ -160,16 +192,42 @@
     }
 }
 
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
+    UITableViewCell *cell = (UITableViewCell *)[[textField superview] superview];
+    NSIndexPath *indexPath = [tableView indexPathForCell:cell];
+    if (indexPath.row == myFolder.count-1) {
+        [UIView beginAnimations:@"ResizeForKeyBoard" context:nil];
+        [UIView setAnimationDuration:0.30f];
+        //some problems there!!!
+        point = tableView.center;
+        tableView.center = CGPointMake(160, 60);
+        [UIView commitAnimations];
+    }
+    return YES;
+}
+
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField{
+    UITableViewCell *cell = (UITableViewCell *)[[textField superview] superview];
+    NSIndexPath *indexPath = [tableView indexPathForCell:cell];
+    if (indexPath.row==myFolder.count-1){
+        [UIView beginAnimations:@"ResizeForKeyBoard" context:nil];
+        [UIView setAnimationDuration:0.30f];
+        tableView.center = point;
+        [UIView commitAnimations];
+    }
+    return YES;
+}
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
     [textField resignFirstResponder];
     
     [self deleteSpan:textField];
     NSString *folderName= [[NSString alloc] initWithFormat:@"%@%@", BLANKINFRONT, textField.text];
-
+    
     if (![textField.text isEqualToString:@""]) {
         [myFolder insertObject:folderName atIndex:myFolder.count-1];
     }
-
+    
     [self.tableView reloadData];
     return YES;
 }
@@ -192,8 +250,8 @@
     }
     else{
         return [self myFolderSection:tableView indexPath:indexPath];
-    }  
-     
+    }
+    
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -220,4 +278,13 @@
     }
 }
 
+- (void)viewDidUnload {
+    [self setTableView:nil];
+    [super viewDidUnload];
+}
+- (IBAction)camera:(id)sender {
+}
+
+- (IBAction)sound:(id)sender {
+}
 @end

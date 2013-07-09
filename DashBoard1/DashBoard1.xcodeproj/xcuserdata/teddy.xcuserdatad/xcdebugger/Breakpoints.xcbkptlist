@@ -8,20 +8,20 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DashBoard1/BobAppDelegate.h"
-         timestampString = "394528667.120567"
+         timestampString = "395030220.82468"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "14"
-         endingLineNumber = "14"
-         landmarkName = "@interface BobAppDelegate"
-         landmarkType = "2">
+         startingLineNumber = "13"
+         endingLineNumber = "13"
+         landmarkName = "window"
+         landmarkType = "19">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DashBoard1/BobRootViewController.m"
-         timestampString = "395025888.357097"
+         timestampString = "395030986.063971"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "141"
@@ -34,7 +34,7 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DashBoard1/BobRootViewController.m"
-         timestampString = "395025888.357097"
+         timestampString = "395030986.063971"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "151"
@@ -47,7 +47,7 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DashBoard1/BobRootViewController.m"
-         timestampString = "395025888.357097"
+         timestampString = "395030986.063971"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "145"
@@ -60,7 +60,7 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DashBoard1/BobRootViewController.m"
-         timestampString = "395025888.357097"
+         timestampString = "395030986.063971"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "209"
@@ -80,6 +80,32 @@
          endingLineNumber = "14"
          landmarkName = "main()"
          landmarkType = "7">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "DashBoard1/RootViewController.m"
+         timestampString = "395050441.952054"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "196"
+         endingLineNumber = "196"
+         landmarkName = "-textFieldShouldBeginEditing:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "DashBoard1/RootViewController.m"
+         timestampString = "395050441.952054"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "209"
+         endingLineNumber = "209"
+         landmarkName = "-textFieldShouldEndEditing:"
+         landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>
 </Bucket>
