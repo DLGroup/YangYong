@@ -15,6 +15,7 @@
 #define IMAGETAG 102
 #define TEXTFIELDTAG 103
 #define BLANKINFRONT @"          "
+#define KEYBOARDHEIGHT 160
 
 @interface RootViewController ()
 {
@@ -42,33 +43,12 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    myFolderSections = [[NSMutableArray alloc] initWithObjects:@"", @"My Folder", @"My Tags" ,nil];
+    myFolderSections = [[NSMutableArray alloc] initWithObjects:@"", @"My Folder", @"My Tags", @"", nil];
     myFolder = [[NSMutableArray alloc] init];
     [myFolder addObject:@"Enter new folder name"];
-//    //observe keyboard hide and show notification to resize the text view
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
 
-//- (void)keyboardWillShow:(NSNotification *)notification{
-//    NSDictionary *userInfo = [notification userInfo];
-//    NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
-//    CGRect keyboardRect = [aValue CGRectValue];
-//    keyboardRect = [self.view convertRect:keyboardRect fromView:nil];
-//    
-//    CGFloat keyboardTop = keyboardRect.origin.y;
-//    CGRect newTextViewFrame = self.view.bounds;
-//    newTextViewFrame.size.height = keyboardTop - self.view.bounds.origin.y;
-//    
-//    NSValue *animationDurationValue = [userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
-//    NSTimeInterval animationDuration;
-//    [animationDurationValue getValue:&animationDuration];
-//    
-//    [UIView beginAnimations:nil context:NULL];
-//    [UIView setAnimationDuration:animationDuration];
-//    
-//    
-//}
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -80,13 +60,15 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 3;
+    return 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if(section==1)
         return myFolder.count;
+    else if(section==3)
+        return 3;
     else
         return 1;
 }
@@ -193,28 +175,15 @@
 }
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
-    UITableViewCell *cell = (UITableViewCell *)[[textField superview] superview];
-    NSIndexPath *indexPath = [tableView indexPathForCell:cell];
-    if (indexPath.row == myFolder.count-1) {
-        [UIView beginAnimations:@"ResizeForKeyBoard" context:nil];
-        [UIView setAnimationDuration:0.30f];
-        //some problems there!!!
-        point = tableView.center;
-        tableView.center = CGPointMake(160, 60);
-        [UIView commitAnimations];
-    }
+    CGPoint pointInTable = [textField.superview convertPoint:textField.frame.origin toView:self.tableView];
+    CGPoint contentOffset = self.tableView.contentOffset;
+    contentOffset.y = (pointInTable.y - textField.inputAccessoryView.frame.size.height - KEYBOARDHEIGHT);
+    NSLog(@"contentOffset is %@", NSStringFromCGPoint(contentOffset));
+    [self.tableView setContentOffset:contentOffset animated:YES];
     return YES;
 }
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField{
-    UITableViewCell *cell = (UITableViewCell *)[[textField superview] superview];
-    NSIndexPath *indexPath = [tableView indexPathForCell:cell];
-    if (indexPath.row==myFolder.count-1){
-        [UIView beginAnimations:@"ResizeForKeyBoard" context:nil];
-        [UIView setAnimationDuration:0.30f];
-        tableView.center = point;
-        [UIView commitAnimations];
-    }
     return YES;
 }
 
@@ -244,6 +213,12 @@
         return [self tagSection:tableView];
     }
     
+    //the last blank section
+    else if (indexPath.section==3){
+        UITableViewCell *cell = [[UITableViewCell alloc] init];
+        cell.backgroundView = [[UIView alloc] init];
+        return cell;
+    }
     //the last folder section
     else if(indexPath.row == myFolder.count-1){
         return [self myFolderTextFieldSection:tableView];
