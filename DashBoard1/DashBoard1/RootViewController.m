@@ -16,12 +16,14 @@
 #define TEXTFIELDTAG 103
 #define BLANKINFRONT @"          "
 #define KEYBOARDHEIGHT 160
+//need to change with NSDictionary to manage the BobFolderViewController
+NSMutableDictionary*soundFolder;
 
 @interface RootViewController ()
 {
     NSMutableArray *myFolder;
     NSString *name;
-    BobFolderDetailViewController *folderDetail;
+    UILabel *folderLabel;
 }
 
 @end
@@ -30,15 +32,6 @@
 
 @synthesize tableView;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -46,9 +39,10 @@
     myFolderSections = [[NSMutableArray alloc] initWithObjects:@"", @"My Folder", @"My Tags", @"", nil];
     myFolder = [[NSMutableArray alloc] init];
     [myFolder addObject:@"Enter new folder name"];
+    
+    //the global variable
+    soundFolder = [[NSMutableDictionary alloc] initWithObjectsAndKeys:[[BobFolderDetailViewController alloc] initWithNibName:@"BobFolderDetailViewController" bundle:nil name:@"Recordings" tag:0], @"Recordings", nil];
 }
-
-
 
 - (void)didReceiveMemoryWarning
 {
@@ -73,30 +67,25 @@
         return 1;
 }
 
+
+//should be good enough to combine this
+//...
 - (void)recordingsDetailInfo:(id)sender{
-    name = @"Recordings";
-    if (folderDetail==nil) {
-        folderDetail = [[BobFolderDetailViewController alloc] initWithNibName:@"BobFolderDetailViewController" bundle:nil name:name tag:0];
-        [self.navigationController pushViewController:folderDetail animated:YES];
-    }
-    
+    [self.navigationController pushViewController:[soundFolder objectForKey:@"Recordings"] animated:YES];
 }
 - (void)tagsDetailInfo:(id)sender{
-    name = @"My Tags";
-    if (folderDetail==nil) {
-        folderDetail = [[BobFolderDetailViewController alloc] initWithNibName:@"BobFolderDetailViewController" bundle:nil name:name tag:3];
-        [self.navigationController pushViewController:folderDetail animated:YES];
-    }
-    
+    //just nothing has happened yet
+//    [self.navigationController pushViewController:[soundFolder objectForKey:@"My Tags"] animated:YES];
 }
 
 - (void)folderDetailInfo:(id)sender{
-    name = @"Folder";   //need to change this
-    if (folderDetail == nil) {
-        folderDetail = [[BobFolderDetailViewController alloc] initWithNibName:@"BobFolderDetailViewController" bundle:nil name:name tag:0];
-        [self.navigationController pushViewController:folderDetail animated:YES];
-    }
+    
+    //取得所在行的名字存入foldername里
+    [self.navigationController pushViewController:[soundFolder objectForKey:folderLabel.text] animated:YES];
 }
+
+//...
+//end change information
 
 -(UITableViewCell*)recordingSection:(UITableView*)tableView{
     static NSString *str=@"RecordingCell";
@@ -159,9 +148,9 @@
     UIImageView *image = (UIImageView *)[cell viewWithTag:IMAGETAG];
     [image setImage:[UIImage imageNamed:@"folder_icon.png"]];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    UILabel *label=(UILabel*)[cell viewWithTag:LABELTAG];
-    label.text=[myFolder objectAtIndex:indexPath.row];
-    label.layer.cornerRadius = 10;
+    folderLabel=(UILabel*)[cell viewWithTag:LABELTAG];
+    folderLabel.text=[myFolder objectAtIndex:indexPath.row];
+    folderLabel.layer.cornerRadius = 10;
     
     UIButton *button = (UIButton *)[cell viewWithTag:BUTTONTAG];
     [button addTarget:self action:@selector(folderDetailInfo:) forControlEvents:UIControlEventTouchUpInside];
@@ -215,9 +204,9 @@
     
     [self deleteSpan:textField];
     NSString *folderName= [[NSString alloc] initWithFormat:@"%@%@", BLANKINFRONT, textField.text];
-    
     if (![textField.text isEqualToString:@""]) {
         [myFolder insertObject:folderName atIndex:myFolder.count-1];
+        [soundFolder setObject:[[BobFolderDetailViewController alloc] initWithNibName:@"BobFolderDetailViewController" bundle:nil name:folderName tag:0] forKey:folderName];
     }
     
     [self.tableView reloadData];

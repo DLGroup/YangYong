@@ -23,6 +23,8 @@
 
 @implementation BobFolderDetailViewController
 
+@synthesize tableView;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -42,6 +44,14 @@
         self.title = name;
     }
     return self;
+}
+
+- (IBAction)camera:(id)sender {
+}
+
+- (IBAction)sound:(id)sender {
+    tag++;
+    [tableView reloadData];
 }
 
 - (void)viewDidLoad
@@ -111,4 +121,8 @@
     
 }
 
+- (void)viewDidUnload {
+    [self setTableView:nil];
+    [super viewDidUnload];
+}
 @end

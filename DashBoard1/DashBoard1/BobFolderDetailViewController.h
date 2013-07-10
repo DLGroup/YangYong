@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface BobFolderDetailViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil name:(NSString *)thename tag:(NSInteger)thetag;
+- (IBAction)camera:(id)sender;
+- (IBAction)sound:(id)sender;
 @end
