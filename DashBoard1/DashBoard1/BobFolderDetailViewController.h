@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BobFolderDetailViewController : UIViewController
+@interface BobFolderDetailViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
 
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil name:(NSString *)thename tag:(NSInteger)thetag;
 @end

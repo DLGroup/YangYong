@@ -20,8 +20,8 @@
 @interface RootViewController ()
 {
     NSMutableArray *myFolder;
-    CGPoint point;
-    NSInteger YPoint;
+    NSString *name;
+    BobFolderDetailViewController *folderDetail;
 }
 
 @end
@@ -73,9 +73,29 @@
         return 1;
 }
 
-- (void)detailInfo:(id)sender{
-    BobFolderDetailViewController *folderDetail = [[BobFolderDetailViewController alloc] initWithNibName:@"BobFolderDetailViewController" bundle:nil];
-    [self.navigationController pushViewController:folderDetail animated:YES];
+- (void)recordingsDetailInfo:(id)sender{
+    name = @"Recordings";
+    if (folderDetail==nil) {
+        folderDetail = [[BobFolderDetailViewController alloc] initWithNibName:@"BobFolderDetailViewController" bundle:nil name:name tag:0];
+        [self.navigationController pushViewController:folderDetail animated:YES];
+    }
+    
+}
+- (void)tagsDetailInfo:(id)sender{
+    name = @"My Tags";
+    if (folderDetail==nil) {
+        folderDetail = [[BobFolderDetailViewController alloc] initWithNibName:@"BobFolderDetailViewController" bundle:nil name:name tag:3];
+        [self.navigationController pushViewController:folderDetail animated:YES];
+    }
+    
+}
+
+- (void)folderDetailInfo:(id)sender{
+    name = @"Folder";   //need to change this
+    if (folderDetail == nil) {
+        folderDetail = [[BobFolderDetailViewController alloc] initWithNibName:@"BobFolderDetailViewController" bundle:nil name:name tag:0];
+        [self.navigationController pushViewController:folderDetail animated:YES];
+    }
 }
 
 -(UITableViewCell*)recordingSection:(UITableView*)tableView{
@@ -90,8 +110,9 @@
         label.layer.cornerRadius = 10;
         UIImageView *image = (UIImageView *)[cell viewWithTag:102];
         [image setImage:[UIImage imageNamed:@"recording_icon.png"]];
+        
         UIButton *button = (UIButton *)[cell viewWithTag:BUTTONTAG];
-        [button addTarget:self action:@selector(detailInfo:) forControlEvents:UIControlEventTouchUpInside];
+        [button addTarget:self action:@selector(recordingsDetailInfo:)forControlEvents:UIControlEventTouchUpInside];
     }
     
     return cell;
@@ -110,8 +131,9 @@
         
         UIImageView *image = (UIImageView *)[cell viewWithTag:IMAGETAG];
         [image setImage:[UIImage imageNamed:@"tag_icon.png"]];
+        
         UIButton *button = (UIButton *)[cell viewWithTag:BUTTONTAG];
-        [button addTarget:self action:@selector(detailInfo:) forControlEvents:UIControlEventTouchUpInside];
+        [button addTarget:self action:@selector(tagsDetailInfo:) forControlEvents:UIControlEventTouchUpInside];
     }
     return cell;
 }
@@ -140,8 +162,9 @@
     UILabel *label=(UILabel*)[cell viewWithTag:LABELTAG];
     label.text=[myFolder objectAtIndex:indexPath.row];
     label.layer.cornerRadius = 10;
+    
     UIButton *button = (UIButton *)[cell viewWithTag:BUTTONTAG];
-    [button addTarget:self action:@selector(detailInfo:) forControlEvents:UIControlEventTouchUpInside];
+    [button addTarget:self action:@selector(folderDetailInfo:) forControlEvents:UIControlEventTouchUpInside];
     
     return cell;
 }
@@ -239,18 +262,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 1 && indexPath.row == myFolder.count-1) {
-        //made the textField no responding
-        //...
-    }
-    else if (indexPath.section == 1 && indexPath.row != myFolder.count-1){
-        //need to improve
-        //mabye delete the selected folder
-        
-    }
-    else{
-        
-    }
 }
 
 - (void)viewDidUnload {
