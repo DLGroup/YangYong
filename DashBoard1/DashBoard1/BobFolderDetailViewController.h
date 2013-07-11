@@ -14,4 +14,7 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil name:(NSString *)thename tag:(NSInteger)thetag;
 - (IBAction)camera:(id)sender;
 - (IBAction)sound:(id)sender;
+
+- (void)addCellOnce;
+
 @end

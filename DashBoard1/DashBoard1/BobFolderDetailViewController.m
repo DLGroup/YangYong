@@ -45,13 +45,17 @@
     }
     return self;
 }
+- (void)addCellOnce{
+    ++tag;
+    [tableView reloadData];
+}
 
 - (IBAction)camera:(id)sender {
 }
 
 - (IBAction)sound:(id)sender {
-    tag++;
-    [tableView reloadData];
+    [self addCellOnce];
+//    [tableView reloadData];
 }
 
 - (void)viewDidLoad
@@ -98,8 +102,10 @@
     if (cell==nil) {
         cell = (UITableViewCell *)[[[NSBundle mainBundle] loadNibNamed:@"SoundCell" owner:self options:nil] lastObject];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        UILabel *label = (UILabel *)[cell viewWithTag:103];
-        label.layer.cornerRadius = 10;
+        UILabel *label1 = (UILabel *)[cell viewWithTag:103];
+        label1.layer.cornerRadius = 10;
+        UILabel *label2 = (UILabel *)[cell viewWithTag:101];
+        label2.text = [[NSString alloc] initWithFormat:@"%@", self.title];
 //        
 //        UIButton *playButton = (UIButton *)[cell viewWithTag:PLAYAUDIO];
 //        [playButton addTarget:self action:@selector(playAudio:) forControlEvents:UIControlEventTouchUpInside];
