@@ -8,6 +8,7 @@
 
 #import "BobFolderDetailViewController.h"
 #import <QuartzCore/QuartzCore.h>
+
 #define PLAYAUDIOTAG 100
 #define DATEINFOTAG 101
 #define DETAILINFOTAG 102
@@ -18,21 +19,11 @@
     NSString *name;
     NSInteger tag;
 }
-
 @end
 
 @implementation BobFolderDetailViewController
 
 @synthesize tableView;
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil name:(NSString *)thename tag:(NSInteger)thetag
 {
@@ -45,44 +36,20 @@
     }
     return self;
 }
+
 - (void)addCellOnce{
     ++tag;
     [tableView reloadData];
 }
 
 - (IBAction)camera:(id)sender {
+    
 }
 
 - (IBAction)sound:(id)sender {
+    
     [self addCellOnce];
-//    [tableView reloadData];
 }
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-#pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    //need to change according to the custom cell amount
-    return tag;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return 1;
-}
-
 
 - (void)playAudio:(id)sender{
     
@@ -92,18 +59,29 @@
     
 }
 
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return tag;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 1;
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    
     static NSString *str = @"SoundCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:str];
     if (cell==nil) {
         cell = (UITableViewCell *)[[[NSBundle mainBundle] loadNibNamed:@"SoundCell" owner:self options:nil] lastObject];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
         UILabel *label1 = (UILabel *)[cell viewWithTag:103];
         label1.layer.cornerRadius = 10;
+        
         UILabel *label2 = (UILabel *)[cell viewWithTag:101];
         label2.text = [[NSString alloc] initWithFormat:@"%@", self.title];
 //        

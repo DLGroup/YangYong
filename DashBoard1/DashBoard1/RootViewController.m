@@ -16,23 +16,19 @@
 #define TEXTFIELDTAG 103
 #define BLANKINFRONT @"          "
 #define KEYBOARDHEIGHT 160
-//need to change with NSDictionary to manage the BobFolderViewController
-NSMutableDictionary*soundFolder;
 
 @interface RootViewController ()
 {
     NSMutableArray *myFolder;
     NSString *name;
-//    UILabel *folderLabel;
+    NSMutableDictionary*soundFolder;
     NSString *folderName;
 }
-
 @end
 
 @implementation RootViewController
 
 @synthesize tableView;
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -41,15 +37,7 @@ NSMutableDictionary*soundFolder;
     myFolder = [[NSMutableArray alloc] init];
     folderName = [[NSString alloc] init];
     [myFolder addObject:@"Enter new folder name"];
-    
-    //the global variable
     soundFolder = [[NSMutableDictionary alloc] initWithObjectsAndKeys:[[BobFolderDetailViewController alloc] initWithNibName:@"BobFolderDetailViewController" bundle:nil name:@"Recordings" tag:0], @"Recordings", nil];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Table view data source
@@ -69,36 +57,29 @@ NSMutableDictionary*soundFolder;
         return 1;
 }
 
-
-//should be good enough to combine this
-//...
 - (void)recordingsDetailInfo:(id)sender{
     [self.navigationController pushViewController:[soundFolder objectForKey:@"Recordings"] animated:YES];
 }
 - (void)tagsDetailInfo:(id)sender{
-    //just nothing has happened yet
 //    [self.navigationController pushViewController:[soundFolder objectForKey:@"My Tags"] animated:YES];
 }
-
 - (void)folderDetailInfo:(id)sender{
-    
-    //取得所在行的名字存入foldername里
 //    [self.navigationController pushViewController:[soundFolder objectForKey:folderName] animated:YES];
 }
 
-//...
-//end change information
-
 -(UITableViewCell*)recordingSection:(UITableView*)tableView{
+    
     static NSString *str=@"RecordingCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:str];
     if (cell == nil) {
         cell = (UITableViewCell*)[[[NSBundle mainBundle] loadNibNamed:@"BobMainCell" owner:self options:nil] lastObject];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
         UILabel *label=(UILabel*)[cell viewWithTag:100];
         label.text = [[NSString alloc] initWithFormat:@"%@Recording", BLANKINFRONT];
         label.backgroundColor = [UIColor brownColor];
         label.layer.cornerRadius = 10;
+        
         UIImageView *image = (UIImageView *)[cell viewWithTag:102];
         [image setImage:[UIImage imageNamed:@"recording_icon.png"]];
         
@@ -110,11 +91,13 @@ NSMutableDictionary*soundFolder;
 }
 
 -(UITableViewCell*)tagSection:(UITableView*)tableView{
+    
     static NSString *str=@"TagCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:str];
     if (cell == nil) {
         cell = (UITableViewCell*)[[[NSBundle mainBundle] loadNibNamed:@"BobMainCell" owner:self options:nil] lastObject];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
         UILabel *label=(UILabel*)[cell viewWithTag:LABELTAG];
         label.text = [[NSString alloc] initWithFormat:@"%@Tag", BLANKINFRONT];
         label.backgroundColor = [UIColor grayColor];
@@ -126,42 +109,50 @@ NSMutableDictionary*soundFolder;
         UIButton *button = (UIButton *)[cell viewWithTag:BUTTONTAG];
         [button addTarget:self action:@selector(tagsDetailInfo:) forControlEvents:UIControlEventTouchUpInside];
     }
+    
     return cell;
 }
 
 -(UITableViewCell *)myFolderTextFieldSection:(UITableView *)tableView{
+    
     static NSString *lastCellId=@"LastCellId";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:lastCellId];
     if (cell == nil) {
         cell = (UITableViewCell*)[[[NSBundle mainBundle] loadNibNamed:@"FolderCell" owner:self options:nil] lastObject];
+        
         UITextField *textField=(UITextField *)[cell viewWithTag:TEXTFIELDTAG];
         textField.layer.cornerRadius = 10;
         textField.delegate=self;
     }
+    
     return cell;
 }
 
 -(UITableViewCell *)myFolderSection:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath{
+    
     static NSString *BaseCellId=@"BaseCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:BaseCellId];
     if (cell == nil) {
         cell = (UITableViewCell*)[[[NSBundle mainBundle] loadNibNamed:@"BobMainCell" owner:self options:nil] lastObject];
-    }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
     UIImageView *image = (UIImageView *)[cell viewWithTag:IMAGETAG];
     [image setImage:[UIImage imageNamed:@"folder_icon.png"]];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
     UILabel *label=(UILabel*)[cell viewWithTag:LABELTAG];
     label.text=[myFolder objectAtIndex:indexPath.row];
     label.layer.cornerRadius = 10;
     
 //    UIButton *button = (UIButton *)[cell viewWithTag:BUTTONTAG];
 //    [button addTarget:self action:@selector(folderDetailInfo:) forControlEvents:UIControlEventTouchUpInside];
+    }
     
     return cell;
 }
 
 //use c language to delete the blank beginning
 -(void)deleteSpan:(UITextField *)textField{
+    
     //convert the textField.text from NSSttring* to char*
     char *str = [textField.text UTF8String];
     
@@ -190,29 +181,27 @@ NSMutableDictionary*soundFolder;
 
 //make the textfield always beyond the keyboards
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
+    
     CGPoint pointInTable = [textField.superview convertPoint:textField.frame.origin toView:self.tableView];
     CGPoint contentOffset = self.tableView.contentOffset;
     contentOffset.y = (pointInTable.y - textField.inputAccessoryView.frame.size.height - KEYBOARDHEIGHT);
     NSLog(@"contentOffset is %@", NSStringFromCGPoint(contentOffset));
     [self.tableView setContentOffset:contentOffset animated:YES];
-    return YES;
-}
-
-- (BOOL)textFieldShouldEndEditing:(UITextField *)textField{
+    
     return YES;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
-    [textField resignFirstResponder];
     
+    [textField resignFirstResponder];
     [self deleteSpan:textField];
     folderName= [[NSString alloc] initWithFormat:@"%@%@", BLANKINFRONT, textField.text];
     if (![textField.text isEqualToString:@""]) {
         [myFolder insertObject:folderName atIndex:myFolder.count-1];
         [soundFolder setObject:[[BobFolderDetailViewController alloc] initWithNibName:@"BobFolderDetailViewController" bundle:nil name:folderName tag:0] forKey:folderName];
     }
-    
     [self.tableView reloadData];
+    
     return YES;
 }
 
@@ -234,10 +223,12 @@ NSMutableDictionary*soundFolder;
         cell.backgroundView = [[UIView alloc] init];
         return cell;
     }
+    
     //the last folder section
     else if(indexPath.row == myFolder.count-1){
         return [self myFolderTextFieldSection:tableView];
     }
+    
     else{
         return [self myFolderSection:tableView indexPath:indexPath];
     }
@@ -260,10 +251,6 @@ NSMutableDictionary*soundFolder;
     }
 }
 
-- (void)viewDidUnload {
-    [self setTableView:nil];
-    [super viewDidUnload];
-}
 - (IBAction)camera:(id)sender {
 }
 
@@ -271,4 +258,5 @@ NSMutableDictionary*soundFolder;
     [self.navigationController pushViewController:[soundFolder objectForKey:@"Recordings"] animated:YES];
     [[soundFolder objectForKey:@"Recordings"] addCellOnce];
 }
+
 @end
