@@ -107,7 +107,6 @@
 		9F1ECF931783F67700801CB5 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F1ECF921783F67700801CB5 /* Default-568h@2x.png */; };
 		9F1ECF9A1783F86700801CB5 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F1ECF991783F86700801CB5 /* MainWindow.xib */; };
 		9F4095111785529B000F2A44 /* FolderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F4095101785529A000F2A44 /* FolderCell.xib */; };
-		9F48BDD6178FC51C00358DC3 /* Archiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F48BDD5178FC51C00358DC3 /* Archiver.m */; };
 		9F56E1A017865F930075449C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F56E19F17865F930075449C /* QuartzCore.framework */; };
 		9F59F0E4178BB0FD00226EC3 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F59F0E2178BB0FD00226EC3 /* RootViewController.m */; };
 		9F59F0E5178BB0FD00226EC3 /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F59F0E3178BB0FD00226EC3 /* RootViewController.xib */; };
@@ -222,8 +221,6 @@
 		9F1ECF921783F67700801CB5 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		9F1ECF991783F86700801CB5 /* MainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		9F4095101785529A000F2A44 /* FolderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FolderCell.xib; sourceTree = "<group>"; };
-		9F48BDD4178FC51C00358DC3 /* Archiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Archiver.h; sourceTree = "<group>"; };
-		9F48BDD5178FC51C00358DC3 /* Archiver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Archiver.m; sourceTree = "<group>"; };
 		9F56E19F17865F930075449C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		9F59F0E1178BB0FD00226EC3 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		9F59F0E2178BB0FD00226EC3 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
@@ -376,7 +373,6 @@
 		9F1ECF821783F67700801CB5 /* DashBoard1 */ = {
 			isa = PBXGroup;
 			children = (
-				9F48BDD3178F92C100358DC3 /* Persistence */,
 				9F40950F17851F56000F2A44 /* DashBoard */,
 				9F1ECF8B1783F67700801CB5 /* BobAppDelegate.h */,
 				9F1ECF8C1783F67700801CB5 /* BobAppDelegate.m */,
@@ -415,15 +411,6 @@
 				9F59F0E6178BB95200226EC3 /* SoundCell.xib */,
 			);
 			name = DashBoard;
-			sourceTree = "<group>";
-		};
-		9F48BDD3178F92C100358DC3 /* Persistence */ = {
-			isa = PBXGroup;
-			children = (
-				9F48BDD4178FC51C00358DC3 /* Archiver.h */,
-				9F48BDD5178FC51C00358DC3 /* Archiver.m */,
-			);
-			name = Persistence;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -588,7 +575,6 @@
 				9F1ECF8D1783F67700801CB5 /* BobAppDelegate.m in Sources */,
 				9F067AC8178403C30063A289 /* BobFolderDetailViewController.m in Sources */,
 				9F59F0E4178BB0FD00226EC3 /* RootViewController.m in Sources */,
-				9F48BDD6178FC51C00358DC3 /* Archiver.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

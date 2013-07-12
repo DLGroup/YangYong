@@ -297,13 +297,12 @@
     NSMutableDictionary *recording = [[NSMutableDictionary alloc] init];
     //need to do something
     //write to data.plist
-//    [recording setObject:[soundFolder objectForKey:@"Recordings"] forKey:@"Recordings"];
+//    [recording setObject:[[soundFolder objectForKey:@"Recordings"] convertTagToNSString] forKey:@"Recordings"];
     for (NSString *newFolderName in myFolder) {
         if ([newFolderName isEqual: @"Enter new folder name"]) {
             continue;
         }
         [recording setObject:[[soundFolder objectForKey:newFolderName] convertTagToNSString] forKey:newFolderName];
-
     }
     [recording writeToFile:[self dataFilePath] atomically:YES];
     NSLog(@"dshiu");
