@@ -17,7 +17,7 @@
 @interface BobFolderDetailViewController ()
 {
     NSString *name;
-    NSInteger tag;
+//  NSArray *dataInfoOfCell;
 }
 @end
 
@@ -40,6 +40,13 @@
 - (void)addCellOnce{
     ++tag;
     [tableView reloadData];
+}
+- (NSInteger)tag{
+    return tag;
+}
+
+- (NSString *)convertTagToNSString{
+    return [[NSString alloc]initWithFormat:@"%d", tag];
 }
 
 - (IBAction)camera:(id)sender {

@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BobFolderDetailViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
+@interface BobFolderDetailViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, NSCoding, NSCopying>
+{
+    NSInteger tag;
+}
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 
@@ -16,5 +19,7 @@
 - (IBAction)camera:(id)sender;
 - (IBAction)sound:(id)sender;
 - (void)addCellOnce;
+- (NSInteger)tag;
+- (NSString *)convertTagToNSString;
 
 @end

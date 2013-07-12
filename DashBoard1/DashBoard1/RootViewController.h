@@ -19,4 +19,8 @@
 - (IBAction)camera:(id)sender;
 - (IBAction)sound:(id)sender;
 
+//persistence
+- (NSString *)dataFilePath;
+- (void)applicationWillResignActive:(NSNotification *)notification;
+
 @end

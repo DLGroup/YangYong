@@ -16,6 +16,7 @@
 #define TEXTFIELDTAG 103
 #define BLANKINFRONT @"          "
 #define KEYBOARDHEIGHT 160
+#define kFilename @"data.plist"
 
 @interface RootViewController ()
 {
@@ -29,6 +30,14 @@
 @implementation RootViewController
 
 @synthesize tableView;
+
+- (NSString *)dataFilePath
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    return [documentsDirectory stringByAppendingPathComponent:kFilename];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -38,6 +47,24 @@
     folderName = [[NSString alloc] init];
     [myFolder addObject:@"Enter new folder name"];
     soundFolder = [[NSMutableDictionary alloc] initWithObjectsAndKeys:[[BobFolderDetailViewController alloc] initWithNibName:@"BobFolderDetailViewController" bundle:nil name:@"Recordings" tag:0], @"Recordings", nil];
+    
+    //persistence begin
+    NSString *filePath = [self dataFilePath];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
+        //made the recording save the folders' cell information and show us totally
+        NSMutableDictionary *recording = [[NSMutableDictionary alloc] initWithContentsOfFile:filePath];
+        for (NSString *key in [recording allKeys]) {
+            [myFolder insertObject:key atIndex:0];
+            NSInteger specialTag = [[recording objectForKey:key] intValue];
+            [soundFolder setObject:[[BobFolderDetailViewController alloc] initWithNibName:@"BobFolderDetailViewController" bundle:nil name:key tag:specialTag] forKey:key];
+        }
+        [self.tableView reloadData];
+        //need to do something
+        //...
+    }
+    UIApplication *app = [UIApplication sharedApplication];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActive:) name:UIApplicationWillResignActiveNotification object:app];
+    //persistence end
 }
 
 #pragma mark - Table view data source
@@ -257,6 +284,29 @@
 - (IBAction)sound:(id)sender {
     [self.navigationController pushViewController:[soundFolder objectForKey:@"Recordings"] animated:YES];
     [[soundFolder objectForKey:@"Recordings"] addCellOnce];
+}
+
+
+
+
+//persistence
+//..we can't use this way to save a custom object 
+
+- (void)applicationWillResignActive:(NSNotification *)notification
+{
+    NSMutableDictionary *recording = [[NSMutableDictionary alloc] init];
+    //need to do something
+    //write to data.plist
+//    [recording setObject:[soundFolder objectForKey:@"Recordings"] forKey:@"Recordings"];
+    for (NSString *newFolderName in myFolder) {
+        if ([newFolderName isEqual: @"Enter new folder name"]) {
+            continue;
+        }
+        [recording setObject:[[soundFolder objectForKey:newFolderName] convertTagToNSString] forKey:newFolderName];
+
+    }
+    [recording writeToFile:[self dataFilePath] atomically:YES];
+    NSLog(@"dshiu");
 }
 
 @end
