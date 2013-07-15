@@ -7,12 +7,14 @@
 //
 
 #import "BobFolderDetailViewController.h"
+#import "RootViewController.h"
 #import <QuartzCore/QuartzCore.h>
 
 #define PLAYAUDIOTAG 100
 #define DATEINFOTAG 101
 #define DETAILINFOTAG 102
 #define LABELTAG 103
+extern NSMutableDictionary *recording;
 
 @interface BobFolderDetailViewController ()
 {
@@ -37,8 +39,9 @@
     return self;
 }
 
-- (void)addCellOnce{
+- (void)addCellByName:(NSString *)cellName{
     ++tag;
+    name = cellName;
     [tableView reloadData];
 }
 - (NSInteger)tag{
@@ -55,7 +58,7 @@
 
 - (IBAction)sound:(id)sender {
     
-    [self addCellOnce];
+    [self addCellByName:name];
 }
 
 - (void)playAudio:(id)sender{
@@ -90,7 +93,7 @@
         label1.layer.cornerRadius = 10;
         
         UILabel *label2 = (UILabel *)[cell viewWithTag:101];
-        label2.text = [[NSString alloc] initWithFormat:@"%@", self.title];
+        label2.text = [[NSString alloc] initWithFormat:@"%@", name];
 //        
 //        UIButton *playButton = (UIButton *)[cell viewWithTag:PLAYAUDIO];
 //        [playButton addTarget:self action:@selector(playAudio:) forControlEvents:UIControlEventTouchUpInside];

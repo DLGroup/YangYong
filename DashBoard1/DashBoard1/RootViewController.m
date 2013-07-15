@@ -17,13 +17,14 @@
 #define BLANKINFRONT @"          "
 #define KEYBOARDHEIGHT 160
 #define kFilename @"data.plist"
+extern NSMutableDictionary *recording;
 
 @interface RootViewController ()
 {
     NSMutableArray *myFolder;
     NSString *name;
-    NSMutableDictionary*soundFolder;
     NSString *folderName;
+    NSMutableDictionary*soundFolder;
 }
 @end
 
@@ -42,6 +43,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    recording = [[NSMutableDictionary alloc] init];
     myFolderSections = [[NSMutableArray alloc] initWithObjects:@"", @"My Folder", @"My Tags", @"", nil];
     myFolder = [[NSMutableArray alloc] init];
     folderName = [[NSString alloc] init];
@@ -52,10 +54,12 @@
     NSString *filePath = [self dataFilePath];
     if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
         //made the recording save the folders' cell information and show us totally
-        NSMutableDictionary *recording = [[NSMutableDictionary alloc] initWithContentsOfFile:filePath];
+        recording = [[NSMutableDictionary alloc] initWithContentsOfFile:filePath];
         for (NSString *key in [recording allKeys]) {
-            [myFolder insertObject:key atIndex:0];
             NSInteger specialTag = [[recording objectForKey:key] intValue];
+            if (![key isEqualToString:@"Recordings"]) {
+                [myFolder insertObject:key atIndex:0];
+            }
             [soundFolder setObject:[[BobFolderDetailViewController alloc] initWithNibName:@"BobFolderDetailViewController" bundle:nil name:key tag:specialTag] forKey:key];
         }
         [self.tableView reloadData];
@@ -283,7 +287,18 @@
 
 - (IBAction)sound:(id)sender {
     [self.navigationController pushViewController:[soundFolder objectForKey:@"Recordings"] animated:YES];
-    [[soundFolder objectForKey:@"Recordings"] addCellOnce];
+    //把所有新建的文件夹里面的内容取出来包含进来
+    for (NSString *newFolderName in myFolder) {
+        if ([newFolderName isEqual: @"Enter new folder name"]) {
+            continue;
+        }
+        NSInteger number = [[soundFolder objectForKey:newFolderName] tag];
+        for (int i=0; i<number; ++i) {
+            [[soundFolder objectForKey:@"Recordings"] addCellByName:newFolderName];
+        }
+    }
+    
+    [[soundFolder objectForKey:@"Recordings"] addCellByName:@"Recordings"];
 }
 
 
@@ -294,18 +309,19 @@
 
 - (void)applicationWillResignActive:(NSNotification *)notification
 {
-    NSMutableDictionary *recording = [[NSMutableDictionary alloc] init];
     //need to do something
     //write to data.plist
-//    [recording setObject:[[soundFolder objectForKey:@"Recordings"] convertTagToNSString] forKey:@"Recordings"];
     for (NSString *newFolderName in myFolder) {
         if ([newFolderName isEqual: @"Enter new folder name"]) {
             continue;
         }
         [recording setObject:[[soundFolder objectForKey:newFolderName] convertTagToNSString] forKey:newFolderName];
     }
+    ////need to attention
+    //...
+    [recording setObject:[[soundFolder objectForKey:@"Recordings"] convertTagToNSString] forKey:@"Recordings"];
     [recording writeToFile:[self dataFilePath] atomically:YES];
-    NSLog(@"dshiu");
+
 }
 
 @end

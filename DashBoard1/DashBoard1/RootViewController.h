@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+NSMutableDictionary *recording;
+
 @interface RootViewController : UIViewController<UITableViewDataSource, UITableViewDelegate,UITextFieldDelegate>
 {
     NSMutableArray *myFolderSections;
