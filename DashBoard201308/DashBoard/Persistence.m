@@ -35,6 +35,10 @@
             [defaultManager createFileAtPath:filePath contents:nil attributes:nil];
             folders = [[NSMutableDictionary alloc] init];
             recorders = [[NSMutableDictionary alloc] init];
+            
+            //...
+            folderNames = [[NSMutableArray alloc] init];
+            folderNumber = 0;
         }
         else
         {
@@ -76,7 +80,7 @@
     recorders = [folders objectForKey:folderName];
     for (NSString *recordName in [recorders allKeys]) {
         NSString *filePath = [[self dataFilePath] stringByAppendingPathComponent:recordName];
-        if (![defaultManager fileExistsAtPath:filePath])
+        if ([defaultManager fileExistsAtPath:filePath])
         {
             [defaultManager removeItemAtPath:filePath error:nil];
         }        
@@ -115,7 +119,7 @@
     defaultManager = [NSFileManager defaultManager];
     //remove the file in the user's document 
     NSString *filePath = [[self dataFilePath] stringByAppendingPathComponent:recordName];
-    if (![defaultManager fileExistsAtPath:filePath])
+    if ([defaultManager fileExistsAtPath:filePath])
     {
         [defaultManager removeItemAtPath:filePath error:nil];
         filePath = nil;

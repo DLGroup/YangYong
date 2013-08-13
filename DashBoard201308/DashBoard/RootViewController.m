@@ -10,18 +10,24 @@
 #import "RootViewController.h"
 #import "RecordingViewController.h"
 #import "FoldersViewController.h"
+#import "FolderEditController.h"
 #import "DashBoardCell.h"
 #import "Persistence.h"
+
+extern NSMutableArray *folderNames;
+extern NSUInteger folderNumber;
 
 //set cell show in the center of screen
 #define TABLEVIEWPOSITIONX 169.0f
 #define CELLHEIGHT 67.0F
+#define FOLDERVIEW 101
+
+
 
 @interface RootViewController ()
 {
-    NSUInteger folderNumber;
-    NSMutableArray *folderNames;
     //...
+    //------
     Persistence *persistence;
 }
 
@@ -51,9 +57,27 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navigation_bar_background"] forBarMetrics:UIBarMetricsDefault];
+    UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithTitle:@"edit" style:UIBarButtonItemStyleBordered target:self action:@selector(edit:)];
+    self.navigationItem.rightBarButtonItem = editButton;
     // reload data by the storaged file while every time push in 
     persistence = [Persistence sharedPersistence];
     [self reloadFolders];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [_tableView reloadData];
+}
+- (void)viewWillAppear:(BOOL)animated
+{
+    
+}
+
+- (void)edit:(id)sender
+{
+    //....
+    FolderEditController *editFolder = [[FolderEditController alloc] initWithNibName:@"FolderEditController" bundle:nil];   
+    [self.navigationController pushViewController:editFolder animated:YES];
 }
 
 #pragma mark - Reload method according persistence data
@@ -114,11 +138,18 @@
     else if (indexPath.section == 1 && indexPath.row != folderNumber) {
         // need to remove the setFolderName method and
         // realize the initial method newly
-        // ...
-        NSString *folderName = [[NSString alloc] initWithFormat:@"%@", [folderNames objectAtIndex:indexPath.row]];
+        // 后期完善：实现长按出现folder edit界面，点击进入下一级导航
+        NSString *folderName = [[NSMutableString alloc] initWithFormat:@"%@", [folderNames objectAtIndex:indexPath.row]];
         FoldersViewController *foldersViewController = [[FoldersViewController alloc] initWithNibName:@"FoldersViewController" bundle:nil folderName:folderName];
-        
         [self.navigationController pushViewController:foldersViewController animated:YES];
+        // ...
+//        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+//        UITapGestureRecognizer *pushInFolder = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(push:)];
+////        pushInFolder.cancelsTouchesInView = NO;
+//        [cell addGestureRecognizer:pushInFolder];
+//        UILongPressGestureRecognizer *folderEdit = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(edit:)];
+//        [cell addGestureRecognizer:folderEdit];
+
     }
     else{
         return;

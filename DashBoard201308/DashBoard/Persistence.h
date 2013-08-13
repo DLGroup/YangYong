@@ -9,6 +9,10 @@
 #import <Foundation/Foundation.h>
 #import "RecordInfo.h"
 
+
+NSUInteger folderNumber;
+NSMutableArray *folderNames;
+
 @interface Persistence : NSObject
 {
     NSMutableDictionary *folders;
