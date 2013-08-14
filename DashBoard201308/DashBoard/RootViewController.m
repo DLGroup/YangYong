@@ -59,7 +59,7 @@ extern NSUInteger folderNumber;
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navigation_bar_background"] forBarMetrics:UIBarMetricsDefault];
     UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithTitle:@"edit" style:UIBarButtonItemStyleBordered target:self action:@selector(edit:)];
     self.navigationItem.rightBarButtonItem = editButton;
-    // reload data by the storaged file while every time push in 
+    // reload data by the storaged file while every time push in
     persistence = [Persistence sharedPersistence];
     [self reloadFolders];
 }

@@ -12,7 +12,6 @@
 #import <AVFoundation/AVFoundation.h>
 #import "Persistence.h"
 #import "RecordInfo.h"
-#import "RecordDetailController.h"
 
 #define CELLHEIGHT 67.0f
 
