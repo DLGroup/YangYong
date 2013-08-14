@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		1C0D533717B0E00000581747 /* Persistence.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C0D533617B0E00000581747 /* Persistence.m */; };
+		1C13EF1117B86A5D00D59203 /* FolderEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C13EF0F17B86A5D00D59203 /* FolderEditController.m */; };
+		1C13EF1217B86A5D00D59203 /* FolderEditController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1C13EF1017B86A5D00D59203 /* FolderEditController.xib */; };
+		1C13EF1417B86C6000D59203 /* FolderEditCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1C13EF1317B86C6000D59203 /* FolderEditCell.xib */; };
 		1C1896EC17B1D769006402CF /* RecordInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C1896EB17B1D769006402CF /* RecordInfo.m */; };
 		1C32B92B17AF5B09005EE345 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C32B92A17AF5B09005EE345 /* AVFoundation.framework */; };
 		1C51CDC917AF710400E451C2 /* SliderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1C51CDC817AF710400E451C2 /* SliderCell.xib */; };
@@ -117,11 +120,17 @@
 		9F5D89A417ABF23D00546FBB /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F5D89A317ABF23D00546FBB /* Default.png */; };
 		9F5D89A617ABF23D00546FBB /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F5D89A517ABF23D00546FBB /* Default@2x.png */; };
 		9F5D89A817ABF23D00546FBB /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F5D89A717ABF23D00546FBB /* Default-568h@2x.png */; };
+		EE1C06B417BB167E00A710DE /* RecordDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE1C06B217BB167E00A710DE /* RecordDetailController.m */; };
+		EE1C06B517BB167E00A710DE /* RecordDetailController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE1C06B317BB167E00A710DE /* RecordDetailController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		1C0D533517B0E00000581747 /* Persistence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Persistence.h; sourceTree = "<group>"; };
 		1C0D533617B0E00000581747 /* Persistence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Persistence.m; sourceTree = "<group>"; };
+		1C13EF0E17B86A5D00D59203 /* FolderEditController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FolderEditController.h; sourceTree = "<group>"; };
+		1C13EF0F17B86A5D00D59203 /* FolderEditController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FolderEditController.m; sourceTree = "<group>"; };
+		1C13EF1017B86A5D00D59203 /* FolderEditController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FolderEditController.xib; sourceTree = "<group>"; };
+		1C13EF1317B86C6000D59203 /* FolderEditCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FolderEditCell.xib; sourceTree = "<group>"; };
 		1C1896EA17B1D769006402CF /* RecordInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordInfo.h; sourceTree = "<group>"; };
 		1C1896EB17B1D769006402CF /* RecordInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordInfo.m; sourceTree = "<group>"; };
 		1C32B92A17AF5B09005EE345 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -241,6 +250,9 @@
 		9F5D89A317ABF23D00546FBB /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		9F5D89A517ABF23D00546FBB /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		9F5D89A717ABF23D00546FBB /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		EE1C06B117BB167E00A710DE /* RecordDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordDetailController.h; sourceTree = "<group>"; };
+		EE1C06B217BB167E00A710DE /* RecordDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordDetailController.m; sourceTree = "<group>"; };
+		EE1C06B317BB167E00A710DE /* RecordDetailController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecordDetailController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -259,6 +271,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1C30EE6717B4BFE2001B6BBD /* EditFolder */ = {
+			isa = PBXGroup;
+			children = (
+				1C13EF0E17B86A5D00D59203 /* FolderEditController.h */,
+				1C13EF0F17B86A5D00D59203 /* FolderEditController.m */,
+				1C13EF1017B86A5D00D59203 /* FolderEditController.xib */,
+				1C13EF1317B86C6000D59203 /* FolderEditCell.xib */,
+			);
+			name = EditFolder;
+			sourceTree = "<group>";
+		};
 		1C32B92617AF4440005EE345 /* Global */ = {
 			isa = PBXGroup;
 			children = (
@@ -271,6 +294,7 @@
 		9F2082A517ADE1E8009BF64E /* Folders */ = {
 			isa = PBXGroup;
 			children = (
+				EE1C06B017BB15FB00A710DE /* DetailRecord */,
 				9F2082AD17AE57C9009BF64E /* Cell */,
 				9F2082A617ADE239009BF64E /* FoldersViewController.h */,
 				9F2082A717ADE239009BF64E /* FoldersViewController.m */,
@@ -451,6 +475,7 @@
 			isa = PBXGroup;
 			children = (
 				1C32B92617AF4440005EE345 /* Global */,
+				1C30EE6717B4BFE2001B6BBD /* EditFolder */,
 				9F2DCD6817ACDCCC0042547A /* RootViewController */,
 				9F2DCD6717ACDCB40042547A /* Recording */,
 				9F2082A517ADE1E8009BF64E /* Folders */,
@@ -472,6 +497,16 @@
 				9F5D89A717ABF23D00546FBB /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		EE1C06B017BB15FB00A710DE /* DetailRecord */ = {
+			isa = PBXGroup;
+			children = (
+				EE1C06B117BB167E00A710DE /* RecordDetailController.h */,
+				EE1C06B217BB167E00A710DE /* RecordDetailController.m */,
+				EE1C06B317BB167E00A710DE /* RecordDetailController.xib */,
+			);
+			name = DetailRecord;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -621,6 +656,9 @@
 				9F2082AA17ADE239009BF64E /* FoldersViewController.xib in Resources */,
 				9F2082AF17AE5823009BF64E /* FolderCell.xib in Resources */,
 				1C51CDC917AF710400E451C2 /* SliderCell.xib in Resources */,
+				1C13EF1217B86A5D00D59203 /* FolderEditController.xib in Resources */,
+				1C13EF1417B86C6000D59203 /* FolderEditCell.xib in Resources */,
+				EE1C06B517BB167E00A710DE /* RecordDetailController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -640,6 +678,8 @@
 				9F2082B217AE761C009BF64E /* FolderCell.m in Sources */,
 				1C0D533717B0E00000581747 /* Persistence.m in Sources */,
 				1C1896EC17B1D769006402CF /* RecordInfo.m in Sources */,
+				1C13EF1117B86A5D00D59203 /* FolderEditController.m in Sources */,
+				EE1C06B417BB167E00A710DE /* RecordDetailController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
