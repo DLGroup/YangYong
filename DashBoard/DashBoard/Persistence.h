@@ -32,6 +32,8 @@ NSMutableArray *folderNames;
 
 - (BOOL)removeFolder:(NSString *)folderName;
 
+- (BOOL) changeFolderName:(NSString *)folderName toNewNmae:(NSString *)newName;
+
 - (void)addRecord:(RecordInfo *)record toFolder:(NSString *)folderName;
 
 - (BOOL)removeRecord:(NSString *)recordName from:(NSString *)folderName;

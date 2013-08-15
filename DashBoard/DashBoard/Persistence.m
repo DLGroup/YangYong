@@ -96,6 +96,16 @@
     return YES;
 }
 
+- (BOOL) changeFolderName:(NSString *)folderName toNewNmae:(NSString *)newName
+{
+    [folders setObject:[[NSMutableDictionary alloc] init] forKey:newName];
+    for (NSString *recordName in [[self getRecordsByFolderName:folderName] allKeys]) {
+        [self addRecord:[self getRecordByFolderName:folderName andRecordName:recordName] toFolder:newName];
+    }
+    [folders removeObjectForKey:folderName];
+    return YES;
+}
+
 #pragma mark - Record operate
 
 - (void)addRecord:(RecordInfo *)record toFolder:(NSString *)folderName

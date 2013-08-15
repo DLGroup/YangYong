@@ -12,12 +12,14 @@
 extern NSMutableArray *folderNames;
 extern NSUInteger folderNumber;
 
-typedef enum{REMOVE=102, CHANGE, NAME}FolderEditID;
+#define NAME 104
 
 @interface FolderEditController ()
 {
     NSUInteger removeNum;
     Persistence *persistence;
+    BOOL isChangeName;
+    UIBarButtonItem *editButton;
 }
 
 @end
@@ -39,6 +41,7 @@ typedef enum{REMOVE=102, CHANGE, NAME}FolderEditID;
         self.title = @"Folder Edit";
         removeNum = 0;
         persistence = [Persistence sharedPersistence];
+        isChangeName = YES;
     }
     return self;
 }
@@ -47,8 +50,10 @@ typedef enum{REMOVE=102, CHANGE, NAME}FolderEditID;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithTitle:@"add" style:UIBarButtonItemStyleBordered target:self action:@selector(add:)];
+    editButton = [[UIBarButtonItem alloc] initWithTitle:@"add" style:UIBarButtonItemStyleBordered target:self action:@selector(add:)];
     self.navigationItem.rightBarButtonItem = editButton;
+    
+    _tableView.editing=YES;
 }
 
 - (void)didReceiveMemoryWarning
@@ -78,47 +83,41 @@ typedef enum{REMOVE=102, CHANGE, NAME}FolderEditID;
         
         UILabel *folderName = (UILabel *)[cell viewWithTag:NAME];
         folderName.text = [folderNames objectAtIndex:indexPath.row];
-        UIButton *remove = (UIButton *)[cell viewWithTag:REMOVE];
-        UIButton *change = (UIButton *)[cell viewWithTag:CHANGE];
-        [remove addTarget:self action:@selector(remove:) forControlEvents:UIControlEventTouchUpInside];
-        [change addTarget:self action:@selector(change:) forControlEvents:UIControlEventTouchUpInside];
     }
     
     return cell;
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
+    return YES;
+    
+}
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+    //...
+    [persistence removeFolder:[folderNames objectAtIndex:removeNum]];
+    [folderNames removeObjectAtIndex:removeNum];
+    folderNumber--;
+    [_tableView reloadData];
+    NSLog(@"commit delete");
 }
 
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    isChangeName = YES;
     removeNum = indexPath.row;
+    _folderName.delegate = self;
+    //change name
+    [self animation];
 }
 
 - (void)add:(id)sender
 {
+    editButton.enabled = NO;
+    isChangeName = NO;
     _folderName.delegate =self;
-    [UIView animateWithDuration:0.3f delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^
-     {
-         //animation...
-         CGFloat positionX = _editView.frame.size.width / 2;
-         CGFloat x = (_editView.layer.position.x == positionX) ? 320+positionX:positionX;
-         [_editView.layer setPosition:CGPointMake(x, _editView.layer.position.y)];
-         
-     }completion:nil];
-}
-
-- (void)remove:(id)sender
-{
-    //实现删除
-    [persistence removeFolder:[folderNames objectAtIndex:removeNum]];
-    [folderNames removeObjectAtIndex:removeNum];
-    folderNumber--;
-    [_tableView reloadData];
-}
-
-- (void)change:(id)sender
-{
-    
+    [self animation];
 }
 
 #pragma mark - TextField delegate
@@ -146,22 +145,24 @@ typedef enum{REMOVE=102, CHANGE, NAME}FolderEditID;
                 return YES;
             }
         }
-        folderNumber++;
-        //folder name
-        [folderNames addObject:textField.text];
-        // add the new foleder to the storage file,folders.plist
-        [persistence addFolder:textField.text];
+        if (isChangeName) {
+            [folderNames addObject:textField.text];
+            [persistence changeFolderName:[folderNames objectAtIndex:removeNum] toNewNmae:textField.text];
+            [folderNames removeObjectAtIndex:removeNum];
+        }
+        else{
+            folderNumber++;
+            //folder name
+            [folderNames addObject:textField.text];
+            // add the new foleder to the storage file,folders.plist
+            [persistence addFolder:textField.text];
+            editButton.enabled = YES;
+        }
+        
         textField.text = nil;
     }
     [self.tableView reloadData];
-    [UIView animateWithDuration:0.3f delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^
-     {
-         //animation...
-         CGFloat positionX = _editView.frame.size.width / 2;
-         CGFloat x = (_editView.layer.position.x == positionX) ? 320+positionX:positionX;
-         [_editView.layer setPosition:CGPointMake(x, _editView.layer.position.y)];
-         
-     }completion:nil];
+    [self animation];
     return YES;
 }
 
@@ -193,6 +194,17 @@ typedef enum{REMOVE=102, CHANGE, NAME}FolderEditID;
         textField.text = [NSString stringWithUTF8String:myStr];
         return FALSE;
     }
+}
+
+- (void)animation{
+    [UIView animateWithDuration:0.3f delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^
+     {
+         //animation...
+         CGFloat positionX = _editView.frame.size.width / 2;
+         CGFloat x = (_editView.layer.position.x == positionX) ? 320+positionX:positionX;
+         [_editView.layer setPosition:CGPointMake(x, _editView.layer.position.y)];
+         
+     }completion:nil];
 }
 @end
 

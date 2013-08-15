@@ -18,8 +18,9 @@
 @interface FoldersViewController ()
 {
     NSString *folderName;
+    
     NSUInteger selectedSection; //show slider cell or not
-    BOOL inserting; //insert cell animationly
+    BOOL inserting;               //insert cell animationly
     NSMutableString *recordName;//the name of every sound file
     Persistence *persistence;
     RecordInfo *recordInfo;
@@ -137,6 +138,8 @@
     else
         return 1;
 }
+
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
