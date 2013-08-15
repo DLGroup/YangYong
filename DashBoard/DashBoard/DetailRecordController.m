@@ -91,8 +91,4 @@ extern NSUInteger folderNumber;
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (IBAction)move:(id)sender {
-    //no use
-    //....delete later
-}
 @end

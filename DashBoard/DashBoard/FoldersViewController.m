@@ -74,7 +74,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     // ------------------
-    NSLog(@"folder name:%@", folderName);
+    UIBarButtonItem *back=[[UIBarButtonItem alloc] initWithTitle:folderName style:UIBarButtonItemStyleBordered target:nil action:nil];
+    back.tintColor=[UIColor blackColor];
+    
+    self.navigationItem.backBarButtonItem=back;
     selectedSection = -1;
     inserting = TRUE;
     session = [AVAudioSession sharedInstance];

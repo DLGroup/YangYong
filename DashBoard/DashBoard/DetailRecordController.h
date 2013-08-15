@@ -14,5 +14,5 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil folderName:(NSString *)ifolderName andRecordName:(NSString *)irecordName;
 - (IBAction)remove:(id)sender;
-- (IBAction)move:(id)sender;
+
 @end
