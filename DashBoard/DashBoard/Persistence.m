@@ -145,6 +145,14 @@
     return YES;
 }
 
+- (void)moveRecord:(NSString *)recordName fromOldFolder:(NSString *)oldFolderName toNewFolder:(NSString *)newFolderName;
+{
+     RecordInfo *record = [self getRecordByFolderName:oldFolderName andRecordName:recordName];
+    [self addRecord:record toFolder:newFolderName];
+    recorders = [folders objectForKey:oldFolderName];
+    [recorders removeObjectForKey:recordName];
+}
+
 - (RecordInfo *)getRecordByFolderName:(NSString *)folderName andRecordName: (NSString *)recordName
 {
     // --------------------------------------

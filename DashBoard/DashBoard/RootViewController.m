@@ -56,8 +56,15 @@ extern NSUInteger folderNumber;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    UIBarButtonItem *back=[[UIBarButtonItem alloc] initWithTitle:@"DashBoard" style:UIBarButtonItemStyleBordered target:nil action:nil];
+    back.tintColor=[UIColor blackColor];
+
+    self.navigationItem.backBarButtonItem=back;
+    
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navigation_bar_background"] forBarMetrics:UIBarMetricsDefault];
     UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithTitle:@"edit" style:UIBarButtonItemStyleBordered target:self action:@selector(edit:)];
+    editButton.tintColor = [UIColor blackColor];
     self.navigationItem.rightBarButtonItem = editButton;
     // reload data by the storaged file while every time push in
     persistence = [Persistence sharedPersistence];
@@ -133,6 +140,8 @@ extern NSUInteger folderNumber;
     if (indexPath.section == 0) {
             [RecordingViewController setClassName:@"Recording"];
         RecordingViewController *recordingViewController = [[RecordingViewController alloc] initWithNibName:@"RecordingViewController" bundle:nil];
+        
+        
         [self.navigationController pushViewController:recordingViewController animated:YES];
     }
     else if (indexPath.section == 1 && indexPath.row != folderNumber) {

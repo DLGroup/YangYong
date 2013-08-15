@@ -51,6 +51,7 @@ extern NSUInteger folderNumber;
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     editButton = [[UIBarButtonItem alloc] initWithTitle:@"add" style:UIBarButtonItemStyleBordered target:self action:@selector(add:)];
+    editButton.tintColor = [UIColor blackColor];
     self.navigationItem.rightBarButtonItem = editButton;
     
     _tableView.editing=YES;
@@ -94,11 +95,10 @@ extern NSUInteger folderNumber;
 }
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     //...
-    [persistence removeFolder:[folderNames objectAtIndex:removeNum]];
-    [folderNames removeObjectAtIndex:removeNum];
+    [persistence removeFolder:[folderNames objectAtIndex:indexPath.row]];
+    [folderNames removeObjectAtIndex:indexPath.row];
     folderNumber--;
     [_tableView reloadData];
-    NSLog(@"commit delete");
 }
 
 #pragma mark - Table view delegate

@@ -25,6 +25,12 @@
     if (self) {
         // Custom initialization
         self.title = className;
+        /*
+        UIBarButtonItem *left=[[UIBarButtonItem alloc] initWithTitle:@"DashBoard" style:UIBarButtonItemStyleBordered target:nil action:nil];
+        left.tintColor=[UIColor blackColor];
+        
+        self.navigationItem.leftBarButtonItem=left;*/
+
     }
     return self;
 }

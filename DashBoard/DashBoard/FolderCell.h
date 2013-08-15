@@ -19,4 +19,6 @@
 + (void) setConfigInfo:(NSString *)configInformation;
 
 + (UIButton *) playBtn;
+
++ (UIButton *) arrowBtn;
 @end

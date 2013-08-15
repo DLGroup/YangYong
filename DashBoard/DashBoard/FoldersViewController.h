@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+NSUInteger sectionCounts;
+NSMutableArray *allRecordsConfigInfo;
+
 @interface FoldersViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
 {
-    NSUInteger sectionCounts;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil folderName:(NSString *)name;

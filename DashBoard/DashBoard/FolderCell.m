@@ -64,4 +64,9 @@ static UILabel *clipName, *configInfo;
     return playBtn;
 }
 
++ (UIButton *)arrowBtn
+{
+    return arrowBtn;
+}
+
 @end
