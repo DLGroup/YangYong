@@ -23,7 +23,7 @@
 //...init method
 - (id)initWithRecordName:(NSString *)recordName andFolderName: (NSString *)folderName;
 
-- (void)addTagName:(NSString *)tagName;
+- (void)addTag:(NSString *)tagName;
 
 - (void)removeTag:(NSString *)tagName;
 

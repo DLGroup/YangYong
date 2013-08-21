@@ -47,6 +47,12 @@ NSMutableArray *folderNames;
 
 - (void)addTag:(NSString *)tagName;
 
+- (void)addRecord:(RecordInfo *)recordInfo toTag:(NSString *)tagName;
+
+- (void)removeRecord:(RecordInfo *)recordInfo fromTag:(NSString *)tagName;
+
+- (void)updateTag;
+
 - (NSMutableDictionary *)tags;
 
 @end
