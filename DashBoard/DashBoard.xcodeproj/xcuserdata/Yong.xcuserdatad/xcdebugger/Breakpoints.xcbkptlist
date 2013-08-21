@@ -65,7 +65,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "40"
          endingLineNumber = "40"
-         landmarkName = "-viewDidLoad"
+         landmarkName = "-initWithNibName:bundle:folderName:andRecordName:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -78,7 +78,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "51"
          endingLineNumber = "51"
-         landmarkName = "-didReceiveMemoryWarning"
+         landmarkName = "-viewDidLoad"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -142,7 +142,9 @@
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "120"
-         endingLineNumber = "120">
+         endingLineNumber = "120"
+         landmarkName = "-tableView:didSelectRowAtIndexPath:"
+         landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -153,7 +155,9 @@
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "121"
-         endingLineNumber = "121">
+         endingLineNumber = "121"
+         landmarkName = "-tableView:didSelectRowAtIndexPath:"
+         landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -164,7 +168,9 @@
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "113"
-         endingLineNumber = "113">
+         endingLineNumber = "113"
+         landmarkName = "-tableView:didSelectRowAtIndexPath:"
+         landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -175,7 +181,9 @@
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "123"
-         endingLineNumber = "123">
+         endingLineNumber = "123"
+         landmarkName = "-tableView:didSelectRowAtIndexPath:"
+         landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "Yes"

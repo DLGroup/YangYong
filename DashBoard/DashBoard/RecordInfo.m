@@ -60,7 +60,7 @@
     [_tagNames addObject:newName];
 }
 
-- (void)addTagName:(NSString *)tagName
+- (void)addTag:(NSString *)tagName
 {
     [_tagNames addObject:tagName];
 }

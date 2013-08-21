@@ -250,4 +250,17 @@
     return tags;
 }
 
+- (void)addRecord:(RecordInfo *)recordInfo toTag:(NSString *)tagName
+{
+    NSMutableData *recordData = [[NSMutableData alloc] initWithContentsOfFile:[[self dataFilePath] stringByAppendingPathComponent:[recordInfo recordName]]];
+    [[tags objectForKey:tagName] addObject:recordData];
+}
+
+- (void)removeRecord:(RecordInfo *)recordInfo fromTag:(NSString *)tagName
+{
+    NSMutableData *recordData = [[NSMutableData alloc] initWithContentsOfFile:[[self dataFilePath] stringByAppendingPathComponent:[recordInfo recordName]]];
+    [[tags objectForKey:tagName] removeObject:recordData];
+}
+
+
 @end

@@ -149,9 +149,11 @@
             }
         }
         if (isChangeName) {
-            [tagNames addObject:textField.text];
+//            [persistence changeTagName:[tagNames objectAtIndex:removeNum] toNewName:textField.text];
             [persistence changeTagName:[tagNames objectAtIndex:removeNum] toNewName:textField.text];
             [tagNames removeObjectAtIndex:removeNum];
+            [tagNames addObject:textField.text];
+
         }
         else {
             [tagNames addObject:textField.text];
