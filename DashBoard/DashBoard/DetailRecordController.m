@@ -118,17 +118,17 @@ extern NSUInteger folderNumber;
         [self.navigationController popViewControllerAnimated:YES];
     }
     else {
-        if (cell.accessoryType ==UITableViewCellAccessoryCheckmark) {
+        if (cell.accessoryType == UITableViewCellAccessoryCheckmark) {
             cell.accessoryType = UITableViewCellAccessoryNone;
             [recordTags removeObjectForKey:[totalTags objectAtIndex:indexPath.row]];
             [record removeTag:[totalTags objectAtIndex:indexPath.row]];
-            [persistence addRecord:record toTag:[totalTags objectAtIndex:indexPath.row]];
+            [persistence removeRecord:record fromTag:[totalTags objectAtIndex:indexPath.row]];
         }
         else {
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
             [recordTags setObject:[[NSNumber alloc] initWithBool:YES] forKey:[totalTags objectAtIndex:indexPath.row]];
             [record addTag:[totalTags objectAtIndex:indexPath.row]];
-            [persistence removeRecord:record fromTag:[totalTags objectAtIndex:indexPath.row]];
+            [persistence addRecord:record toTag:[totalTags objectAtIndex:indexPath.row]];
         }
         [persistence updateTag];
         [persistence addRecord:record toFolder:folderName];

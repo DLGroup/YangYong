@@ -211,12 +211,15 @@
     for (NSUInteger index=0; index<[recordNames count]; index++) {
         //the tags' object storage RecordInfo
         NSMutableData *recordData = [recordNames objectAtIndex:index];
-        RecordInfo *theRecord;
 //maybe some problem here
-        [recordData getBytes:&theRecord];
-        [theRecord removeTag:tagName];
+        RecordInfo *recordInfo=[[RecordInfo alloc] init];
+        NSKeyedUnarchiver *uar = [[NSKeyedUnarchiver alloc] initForReadingWithData:recordData];
+        recordInfo = [uar decodeObjectForKey:@"kRecord"];
+        [uar finishDecoding];
+        NSLog(@"folder name:%@, and record name:%@", [recordInfo folderName], [recordInfo recordName]);
+        [recordInfo removeTag:tagName];
 //        [self removeRecord:[theRecord recordName] from:[theRecord folderName]];
-        [self addRecord:theRecord toFolder:[theRecord folderName]];
+        [self addRecord:recordInfo toFolder:[recordInfo folderName]];
     }
     //---
     [self updateTag];
@@ -227,12 +230,22 @@
     [tags setObject:[[NSMutableArray alloc] init] forKey:newName];
     for (NSUInteger index=0; index<[[tags objectForKey:oldName] count]; index++) {
         NSMutableData *recordData = [[tags objectForKey:oldName] objectAtIndex:index];
-        RecordInfo *theRecord;
-        [recordData getBytes:&theRecord];
-        [theRecord changeTagName:oldName toNewName:newName];
-        [self addRecord:theRecord toFolder:[theRecord folderName]];
-        //...
-        [[tags objectForKey:newName] addObject:theRecord];
+        RecordInfo *recordInfo=[[RecordInfo alloc] init];
+        NSKeyedUnarchiver *uar = [[NSKeyedUnarchiver alloc] initForReadingWithData:recordData];
+        recordInfo = [uar decodeObjectForKey:@"kRecord"];
+        NSLog(@"folder name:%@, and record name:%@", [recordInfo folderName], [recordInfo recordName]);
+
+        [uar finishDecoding];
+        [recordInfo changeTagName:oldName toNewName:newName];
+        [self addRecord:recordInfo toFolder:[recordInfo folderName]];
+        //write to file afresh
+        NSMutableData *data = [[NSMutableData alloc] init];
+        NSKeyedArchiver *ar = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
+        [ar encodeObject:recordInfo forKey:@"kRecord"];
+        [ar finishEncoding];
+        // ----------------------------------------
+        [data writeToFile:[[self dataFilePath] stringByAppendingPathComponent:[recordInfo recordName]] atomically:YES];
+        [[tags objectForKey:newName] addObject:data];
         
     }
     [tags removeObjectForKey:oldName];
@@ -254,12 +267,14 @@
 {
     NSMutableData *recordData = [[NSMutableData alloc] initWithContentsOfFile:[[self dataFilePath] stringByAppendingPathComponent:[recordInfo recordName]]];
     [[tags objectForKey:tagName] addObject:recordData];
+    [self updateTag];
 }
 
 - (void)removeRecord:(RecordInfo *)recordInfo fromTag:(NSString *)tagName
 {
     NSMutableData *recordData = [[NSMutableData alloc] initWithContentsOfFile:[[self dataFilePath] stringByAppendingPathComponent:[recordInfo recordName]]];
     [[tags objectForKey:tagName] removeObject:recordData];
+    [self updateTag];
 }
 
 
