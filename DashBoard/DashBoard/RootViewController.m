@@ -11,6 +11,7 @@
 #import "RecordingViewController.h"
 #import "FoldersViewController.h"
 #import "FolderEditController.h"
+#import "TagViewController.h"
 #import "DashBoardCell.h"
 #import "Persistence.h"
 
@@ -160,7 +161,11 @@ extern NSUInteger folderNumber;
 //        [cell addGestureRecognizer:folderEdit];
 
     }
-    else{
+    else if(indexPath.section == 2) {
+        TagViewController *tagController = [[TagViewController alloc] initWithNibName:@"TagViewController" bundle:nil];
+        [self.navigationController pushViewController:tagController animated:YES];
+    }
+    else {
         return;
     }
 }

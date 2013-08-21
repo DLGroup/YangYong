@@ -120,6 +120,8 @@
 		9F5D89A417ABF23D00546FBB /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F5D89A317ABF23D00546FBB /* Default.png */; };
 		9F5D89A617ABF23D00546FBB /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F5D89A517ABF23D00546FBB /* Default@2x.png */; };
 		9F5D89A817ABF23D00546FBB /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F5D89A717ABF23D00546FBB /* Default-568h@2x.png */; };
+		EE62591A17C3123100CD254B /* TagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE62591817C3123100CD254B /* TagViewController.m */; };
+		EE62591B17C3123100CD254B /* TagViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE62591917C3123100CD254B /* TagViewController.xib */; };
 		EEDE2F7A17BC73B2005FC743 /* DetailRecordController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDE2F7817BC73B2005FC743 /* DetailRecordController.m */; };
 		EEDE2F7B17BC73B2005FC743 /* DetailRecordController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EEDE2F7917BC73B2005FC743 /* DetailRecordController.xib */; };
 /* End PBXBuildFile section */
@@ -250,6 +252,9 @@
 		9F5D89A317ABF23D00546FBB /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		9F5D89A517ABF23D00546FBB /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		9F5D89A717ABF23D00546FBB /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		EE62591717C3123100CD254B /* TagViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagViewController.h; sourceTree = "<group>"; };
+		EE62591817C3123100CD254B /* TagViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagViewController.m; sourceTree = "<group>"; };
+		EE62591917C3123100CD254B /* TagViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TagViewController.xib; sourceTree = "<group>"; };
 		EEDE2F7717BC73B2005FC743 /* DetailRecordController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailRecordController.h; sourceTree = "<group>"; };
 		EEDE2F7817BC73B2005FC743 /* DetailRecordController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailRecordController.m; sourceTree = "<group>"; };
 		EEDE2F7917BC73B2005FC743 /* DetailRecordController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailRecordController.xib; sourceTree = "<group>"; };
@@ -479,6 +484,7 @@
 				9F2DCD6817ACDCCC0042547A /* RootViewController */,
 				9F2DCD6717ACDCB40042547A /* Recording */,
 				9F2082A517ADE1E8009BF64E /* Folders */,
+				EE62591617C3120900CD254B /* Tag */,
 				9F5D899817ABF23D00546FBB /* Supporting Files */,
 			);
 			path = DashBoard;
@@ -497,6 +503,16 @@
 				9F5D89A717ABF23D00546FBB /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		EE62591617C3120900CD254B /* Tag */ = {
+			isa = PBXGroup;
+			children = (
+				EE62591717C3123100CD254B /* TagViewController.h */,
+				EE62591817C3123100CD254B /* TagViewController.m */,
+				EE62591917C3123100CD254B /* TagViewController.xib */,
+			);
+			name = Tag;
 			sourceTree = "<group>";
 		};
 		EEDE2F7617BC7392005FC743 /* Detail Record */ = {
@@ -659,6 +675,7 @@
 				1C13EF1217B86A5D00D59203 /* FolderEditController.xib in Resources */,
 				1C13EF1417B86C6000D59203 /* FolderEditCell.xib in Resources */,
 				EEDE2F7B17BC73B2005FC743 /* DetailRecordController.xib in Resources */,
+				EE62591B17C3123100CD254B /* TagViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -680,6 +697,7 @@
 				1C1896EC17B1D769006402CF /* RecordInfo.m in Sources */,
 				1C13EF1117B86A5D00D59203 /* FolderEditController.m in Sources */,
 				EEDE2F7A17BC73B2005FC743 /* DetailRecordController.m in Sources */,
+				EE62591A17C3123100CD254B /* TagViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

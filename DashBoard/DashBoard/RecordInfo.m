@@ -12,6 +12,7 @@
 
 @synthesize folderName = _folderName;
 @synthesize recordName = _recordName;
+@synthesize tagNames = _tagNames;
 
 #pragma mark - Initial method
 
@@ -21,6 +22,8 @@
     if (self) {
         _folderName = folderName;
         _recordName = recordName;
+        _tagNames = [[NSMutableArray alloc] init];
+        
     }
     return self;
 }
@@ -34,6 +37,7 @@
     if (self) {
         _folderName = [aDecoder decodeObjectForKey:@"_folderName"];
         _recordName = [aDecoder decodeObjectForKey:@"_recordName"];
+        _tagNames = [aDecoder decodeObjectForKey:@"_tagNames"];
     }
     return self;
 }
@@ -42,6 +46,24 @@
 {
     [aCoder encodeObject:_folderName forKey:@"_folderName"];
     [aCoder encodeObject:_recordName forKey:@"_recordName"];
+    [aCoder encodeObject:_tagNames forKey:@"_tagNames"];
 }
+
+- (void)removeTag:(NSString *)tagName
+{
+    [_tagNames removeObject:tagName];
+}
+
+- (void)changeTagName:(NSString *)oldName toNewName:(NSString *)newName
+{
+    [_tagNames removeObject:oldName];
+    [_tagNames addObject:newName];
+}
+
+- (void)addTagName:(NSString *)tagName
+{
+    [_tagNames addObject:tagName];
+}
+
 
 @end

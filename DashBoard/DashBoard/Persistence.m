@@ -14,6 +14,7 @@
 #import "RecordInfo.h"
 
 #define FOLDERSNAME @"folders.plist"
+#define TAGS @"tags.plist"
 
 @implementation Persistence
 
@@ -35,7 +36,6 @@
             [defaultManager createFileAtPath:filePath contents:nil attributes:nil];
             folders = [[NSMutableDictionary alloc] init];
             recorders = [[NSMutableDictionary alloc] init];
-            
             //...
             folderNames = [[NSMutableArray alloc] init];
             folderNumber = 0;
@@ -44,6 +44,14 @@
         {
             folders = [[NSMutableDictionary alloc] initWithContentsOfFile:filePath];
         }
+        //tags
+        NSString *tagPath = [[self dataFilePath] stringByAppendingPathComponent:TAGS];
+        if (![defaultManager fileExistsAtPath:tagPath]) {
+            [defaultManager createFileAtPath:tagPath contents:nil attributes:nil];
+            tags = [[NSMutableDictionary alloc] init];
+        }
+        else
+            tags = [[NSMutableDictionary alloc] initWithContentsOfFile:tagPath];
     }
     return self;
 }
@@ -184,6 +192,62 @@
     //update the plist file
     if(![folders writeToFile:[[self dataFilePath] stringByAppendingPathComponent:FOLDERSNAME] atomically:YES])
          NSLog(@"some problem happened while write data to folders.plist");
+}
+
+- (void)updateTag
+{
+    if (![tags writeToFile:[[self dataFilePath] stringByAppendingPathComponent:TAGS] atomically:YES]) {
+        NSLog(@"some problem happended while write data to tags.plist");
+    }
+}
+
+- (void)removeTag:(NSString *)tagName
+{
+    //remove the tag used by tag name
+    [tags removeObjectForKey:tagName];
+    //remove the tag information from the RecordInfo
+    //...
+    NSMutableArray *recordNames = [tags objectForKey:tagName];
+    for (NSUInteger index=0; index<[recordNames count]; index++) {
+        //the tags' object storage RecordInfo
+        NSMutableData *recordData = [recordNames objectAtIndex:index];
+        RecordInfo *theRecord;
+//maybe some problem here
+        [recordData getBytes:&theRecord];
+        [theRecord removeTag:tagName];
+//        [self removeRecord:[theRecord recordName] from:[theRecord folderName]];
+        [self addRecord:theRecord toFolder:[theRecord folderName]];
+    }
+    //---
+    [self updateTag];
+}
+
+- (void)changeTagName:(NSString *)oldName toNewName:(NSString *)newName
+{
+    [tags setObject:[[NSMutableArray alloc] init] forKey:newName];
+    for (NSUInteger index=0; index<[[tags objectForKey:oldName] count]; index++) {
+        NSMutableData *recordData = [[tags objectForKey:oldName] objectAtIndex:index];
+        RecordInfo *theRecord;
+        [recordData getBytes:&theRecord];
+        [theRecord changeTagName:oldName toNewName:newName];
+        [self addRecord:theRecord toFolder:[theRecord folderName]];
+        //...
+        [[tags objectForKey:newName] addObject:theRecord];
+        
+    }
+    [tags removeObjectForKey:oldName];
+    [self updateTag];
+}
+
+- (void)addTag:(NSString *)tagName
+{
+    [tags setObject:[[NSMutableArray alloc] init] forKey:tagName];
+    [self updateTag];
+}
+
+- (NSMutableDictionary *)tags
+{
+    return tags;
 }
 
 @end

@@ -65,6 +65,10 @@
         folderName = name;
         self.title = folderName;
         sectionCounts = 0;
+        selectedSection = -1;
+        inserting = TRUE;
+        recordName = [[NSMutableString alloc] initWithFormat:@"%@,file:0", folderName];
+        allRecordsConfigInfo = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -72,14 +76,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-    // ------------------
+    // realize the right bar button and initial
     UIBarButtonItem *back=[[UIBarButtonItem alloc] initWithTitle:folderName style:UIBarButtonItemStyleBordered target:nil action:nil];
     back.tintColor=[UIColor blackColor];
-    
     self.navigationItem.backBarButtonItem=back;
-    selectedSection = -1;
-    inserting = TRUE;
+    
+    //config the sound session
     session = [AVAudioSession sharedInstance];
     NSError *sessionError;
     [session setCategory:AVAudioSessionCategoryPlayAndRecord error:&sessionError];
@@ -87,10 +89,7 @@
         NSLog(@"Error creating session: %@", [sessionError description]);
     else
         [session setActive:YES error:nil];
-    // ------------------
     
-    recordName = [[NSMutableString alloc] initWithFormat:@"%@,file:0", folderName];
-    allRecordsConfigInfo = [[NSMutableArray alloc] init];
     //...singleton mode
     persistence = [Persistence sharedPersistence];
     recordInfo = nil;
@@ -322,6 +321,7 @@
     if (selectedSection != -1) {
         _path=[NSIndexPath indexPathForRow:1 inSection:selectedSection];
         [_tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:_path] withRowAnimation:UITableViewRowAnimationAutomatic];
+        recordName = [[NSMutableString alloc] initWithFormat:@"%@,record:%i", folderName, selectedSection];
         selectedSection = -1;
         _recBtn.enabled = YES;
     }
@@ -334,20 +334,26 @@
         selectedSection=_path.section;
         ;
         _recBtn.enabled = NO;
-        
+        NSError *playerError;
+        player = [[AVAudioPlayer alloc] initWithContentsOfURL:[self dataFilePathURL:recordName] error:&playerError];
+        if (player == nil) {
+            NSLog(@"Error creating player: %@", [playerError description]);
+        }
     }
     [_tableView endUpdates];
     
     recordName = [[NSMutableString alloc] initWithFormat:@"%@,file:%i", folderName, selectedSection];
+    NSString *playerName = [[NSMutableString alloc] initWithFormat:@"%@,record:%i", folderName, selectedSection];
+    NSLog(@"playerName: %@", playerName);
+
 // ---------------------------
     //set the player information
-    NSError *playerError;
-    player = [[AVAudioPlayer alloc] initWithContentsOfURL:[self dataFilePathURL:recordName] error:&playerError];
-    if (player == nil) {
-        NSLog(@"Error creating player: %@", [playerError description]);
-    }
-    //    player.delegate =self;
     
+    
+    //    player.delegate =self;
+    if (player ==nil) {
+        NSLog(@"player is nill. somewhere error happened!");
+    }
     if ([player isPlaying]) {
         [player pause];
         [btn setBackgroundImage:[UIImage imageNamed:@"blueplayer"] forState:UIControlStateNormal];
@@ -366,13 +372,12 @@
     recordName = [[NSMutableString alloc] initWithFormat:@"%@,file:%i", folderName, sectionCounts];
     recordInfo = [[RecordInfo alloc] initWithRecordName:recordName andFolderName:folderName];
 // ---------------------------
-    recorder = [[AVAudioRecorder alloc] initWithURL:[self dataFilePathURL:recordName] settings:nil error:nil];
+    NSString *recorderName = [[NSMutableString alloc] initWithFormat:@"%@,record:%i", folderName, sectionCounts];
+    recorder = [[AVAudioRecorder alloc] initWithURL:[self dataFilePathURL:recorderName] settings:nil error:nil];
     [recorder prepareToRecord];
     [recorder record];
-    player = nil;
-// ---------------------------
-    //此处新建有问题，当用户处在录制情况下退出时实际上是未完成信息的录制
-//    [allRecordsConfigInfo setObject:record forKey:recordName];
+
+//    player = nil;
 }
 
 - (NSURL *)dataFilePathURL:(NSString *)fileName

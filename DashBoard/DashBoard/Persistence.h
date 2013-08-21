@@ -18,6 +18,7 @@ NSMutableArray *folderNames;
     NSMutableDictionary *folders;
     NSMutableDictionary *recorders;
     //...maybe tags later
+    NSMutableDictionary *tags;
 }
 
 + (Persistence *)sharedPersistence;
@@ -39,6 +40,14 @@ NSMutableArray *folderNames;
 - (BOOL)removeRecord:(NSString *)recordName from:(NSString *)folderName;
 
 - (void)moveRecord:(NSString *)recordName fromOldFolder:(NSString *)oldFolderName toNewFolder:(NSString *)newFolderName;
+
+- (void)removeTag:(NSString *)tagName;
+
+- (void)changeTagName:(NSString *)oldName toNewName:(NSString *)newName;
+
+- (void)addTag:(NSString *)tagName;
+
+- (NSMutableDictionary *)tags;
 
 @end
 

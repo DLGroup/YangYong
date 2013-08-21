@@ -18,9 +18,16 @@
 
 @property (strong, nonatomic) NSString *folderName;
 @property (strong, nonatomic) NSString *recordName;
+@property (strong, nonatomic) NSMutableArray *tagNames;
 
 //...init method
 - (id)initWithRecordName:(NSString *)recordName andFolderName: (NSString *)folderName;
+
+- (void)addTagName:(NSString *)tagName;
+
+- (void)removeTag:(NSString *)tagName;
+
+- (void)changeTagName:(NSString *)oldName toNewName:(NSString *)newName;
 
 @end
 
