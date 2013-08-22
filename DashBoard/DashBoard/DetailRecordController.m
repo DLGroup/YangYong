@@ -81,12 +81,15 @@ extern NSUInteger folderNumber;
     if (cell ==nil) {
         cell = (UITableViewCell *)[[[NSBundle mainBundle] loadNibNamed:@"FolderEditCell" owner:self options:nil] lastObject];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        UIImageView *image = (UIImageView *)[cell viewWithTag:103];
         UILabel *folderLabel = (UILabel *)[cell viewWithTag:104];
         if (isMove) {
             folderLabel.text = [folderNames objectAtIndex:indexPath.row];
+            [image setImage:[UIImage imageNamed:@"folder_icon.png"]];
         }
         else {
             folderLabel.text = [totalTags objectAtIndex:indexPath.row];
+            [image setImage:[UIImage imageNamed:@"tag_icon.png"]];
             if ([[recordTags objectForKey:folderLabel.text] boolValue] == YES) {
                 cell.accessoryType = UITableViewCellAccessoryCheckmark;
             }

@@ -87,6 +87,9 @@
         cell = (UITableViewCell *)[[[NSBundle mainBundle] loadNibNamed:@"FolderEditCell" owner:self options:nil] lastObject];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
+        UIImageView *image = (UIImageView *)[cell viewWithTag:103];
+        [image setImage:[UIImage imageNamed:@"tag_icon.png"]];
+        
         UILabel *tagLabel = (UILabel *)[cell viewWithTag:NAME];
         tagLabel.text = [tagNames objectAtIndex:indexPath.row];
     }
