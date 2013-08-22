@@ -7,13 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AVFoundation/AVFoundation.h>
 
 NSUInteger sectionCounts;
 NSMutableArray *allRecordsConfigInfo;
 
-@interface FoldersViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
-{
-}
+@interface FoldersViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, AVAudioPlayerDelegate>
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil folderName:(NSString *)name;
 

@@ -97,6 +97,16 @@
             NSLog(@"the record infomation is not existed!");
             return NO;//delete not successfully！
         }
+        
+        //remove sound file
+        NSString *recordPath = [[self dataFilePath] stringByAppendingPathComponent:[[NSString alloc] initWithFormat:@"%@,record", recordName]];
+        if ([defaultManager fileExistsAtPath:recordPath]) {
+            [defaultManager removeItemAtPath:recordPath error:nil];
+            recordPath = nil;
+        }
+        else {
+            NSLog(@"the sound file is not existed!");
+        }
     }
     //remove the folder used by folderName
     [folders removeObjectForKey:folderName];
@@ -146,6 +156,14 @@
     {
         NSLog(@"the record infomation is not existed!");
         return NO;//删除不成功！
+    }
+    NSString *recordPath = [[self dataFilePath] stringByAppendingPathComponent:[[NSString alloc] initWithFormat:@"%@,record", recordName]];
+    if ([defaultManager fileExistsAtPath:recordPath]) {
+        [defaultManager removeItemAtPath:recordPath error:nil];
+        recordPath = nil;
+    }
+    else {
+        NSLog(@"the sound file is not existed!");
     }
     //delete the record used by recordName
     [[folders objectForKey:folderName] removeObjectForKey:recordName];

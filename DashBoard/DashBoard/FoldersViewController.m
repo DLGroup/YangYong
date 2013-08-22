@@ -181,6 +181,7 @@
         [[FolderCell playBtn] addTarget:self action:@selector(play:) forControlEvents:UIControlEventTouchUpInside];
         [[FolderCell arrowBtn] addTarget:self action:@selector(arrow:) forControlEvents:UIControlEventTouchUpInside];
         //...
+        
         [FolderCell setClipName:[recordInfo recordName] andColor:[UIColor whiteColor]];
         [FolderCell setConfigInfo:[self recorderFileInfo]];
     }
@@ -274,16 +275,19 @@
 
 - (IBAction)stop:(id)sender {
 // ---------------------
-    //...every time we click the stop button we should save the
-    //...information of the newly recorder
-    //把新建的cell加到allCellsConfigInfo里面，并更新后台数据
-    //recordInfo至少要保存指向recorder的文件路径信息、、、、
-//    RecordInfo *newrecordInfo = [recordInfo copy];
     [allRecordsConfigInfo addObject:recordInfo];
-    //...同步到后台...toFolder有没必要
     [persistence addRecord:recordInfo toFolder:folderName];
     [recorder stop];
-    recorder = nil;
+//    recorder = nil;
+    NSString *playerName = [[NSMutableString alloc] initWithFormat:@"%@,file:%i,record", folderName, sectionCounts-1];
+    NSFileManager *defaultManager;
+    defaultManager = [NSFileManager defaultManager];
+    NSError *playerError;
+    player = [[AVAudioPlayer alloc] initWithContentsOfURL:[self dataFilePathURL:playerName] error:&playerError];
+    if (player ==nil) {
+        NSLog(@"ERror creating player: %@", [playerError description]);
+    }
+    player.delegate = self;
 // ---------------------
     inserting = FALSE;
     [self recAnimation];
@@ -291,6 +295,11 @@
     [self cellInsertingAnimation];
     [self stopAndPauseAnimation];
     
+}
+
+- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag
+{
+    NSLog(@"player delegate called!");
 }
 
 - (IBAction)record:(id)sender {
@@ -316,35 +325,33 @@
     UIButton *btn=(UIButton*)sender;
     NSIndexPath *_path=nil;
     UITableViewCell *cell=(UITableViewCell*)[[btn superview] superview];
-    
+    _path=[_tableView indexPathForCell:cell];
+
     int _lastSelectedIdx=selectedSection;
     if (selectedSection != -1) {
         _path=[NSIndexPath indexPathForRow:1 inSection:selectedSection];
         [_tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:_path] withRowAnimation:UITableViewRowAnimationAutomatic];
-        recordName = [[NSMutableString alloc] initWithFormat:@"%@,record:%i", folderName, selectedSection];
+
         selectedSection = -1;
         _recBtn.enabled = YES;
     }
-    
-    _path=[_tableView indexPathForCell:cell];
-    
+        
     if (_path.section != _lastSelectedIdx) {
         NSIndexPath *path=[NSIndexPath indexPathForRow:1 inSection:_path.section];
         [_tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:path] withRowAnimation:UITableViewRowAnimationAutomatic];
         selectedSection=_path.section;
         ;
         _recBtn.enabled = NO;
+        
+        NSString *playerName = [[NSMutableString alloc] initWithFormat:@"%@,file:%i,record", folderName, selectedSection];
         NSError *playerError;
-        player = [[AVAudioPlayer alloc] initWithContentsOfURL:[self dataFilePathURL:recordName] error:&playerError];
+        player = [[AVAudioPlayer alloc] initWithContentsOfURL:[self dataFilePathURL:playerName] error:&playerError];
         if (player == nil) {
             NSLog(@"Error creating player: %@", [playerError description]);
         }
+        
     }
     [_tableView endUpdates];
-    
-    recordName = [[NSMutableString alloc] initWithFormat:@"%@,file:%i", folderName, selectedSection];
-    NSString *playerName = [[NSMutableString alloc] initWithFormat:@"%@,record:%i", folderName, selectedSection];
-    NSLog(@"playerName: %@", playerName);
 
 // ---------------------------
     //set the player information
@@ -369,10 +376,11 @@
 
 - (void)configAudio
 {
+    NSString *recorderName = [[NSMutableString alloc] initWithFormat:@"%@,file:%i,record", folderName, sectionCounts];
     recordName = [[NSMutableString alloc] initWithFormat:@"%@,file:%i", folderName, sectionCounts];
+
     recordInfo = [[RecordInfo alloc] initWithRecordName:recordName andFolderName:folderName];
 // ---------------------------
-    NSString *recorderName = [[NSMutableString alloc] initWithFormat:@"%@,record:%i", folderName, sectionCounts];
     recorder = [[AVAudioRecorder alloc] initWithURL:[self dataFilePathURL:recorderName] settings:nil error:nil];
     [recorder prepareToRecord];
     [recorder record];
