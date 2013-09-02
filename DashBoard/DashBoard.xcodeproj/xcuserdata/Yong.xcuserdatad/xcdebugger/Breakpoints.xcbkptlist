@@ -206,19 +206,6 @@
          timestampString = "398836816.625953"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "360"
-         endingLineNumber = "360"
-         landmarkName = "-play:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "DashBoard/FoldersViewController.m"
-         timestampString = "398836816.625953"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
          startingLineNumber = "331"
          endingLineNumber = "331"
          landmarkName = "-play:"

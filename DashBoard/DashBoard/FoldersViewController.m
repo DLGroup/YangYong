@@ -359,15 +359,17 @@
     
     //    player.delegate =self;
     if (player ==nil) {
-        NSLog(@"player is nill. somewhere error happened!");
+        [btn setBackgroundImage:[UIImage imageNamed:@"playlist_roundicon.png"] forState:UIControlStateNormal];
+        return;
     }
     if ([player isPlaying]) {
         [player pause];
-        [btn setBackgroundImage:[UIImage imageNamed:@"blueplayer"] forState:UIControlStateNormal];
+        [btn setImage:[UIImage imageNamed:@"blueplayer.png"] forState:UIControlStateNormal];
+        player = nil;
     }
     else {
         [player play];
-        [btn setBackgroundImage:[UIImage imageNamed:@"playlist_roundicon"] forState:UIControlStateNormal];
+        [btn setImage:[UIImage imageNamed:@"playlist_roundicon.png"] forState:UIControlStateNormal];
     }
 // ---------------------------
 }
