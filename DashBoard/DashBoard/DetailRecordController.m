@@ -30,7 +30,8 @@ extern NSUInteger folderNumber;
 
 @implementation DetailRecordController
 
-@synthesize tableView = _tableView;
+@synthesize tableView1 = _tableView1;
+@synthesize tableView2 = _tableView2;
 @synthesize titleLabel = _titleLabel;
 @synthesize changeView = _changeView;
 
@@ -81,29 +82,31 @@ extern NSUInteger folderNumber;
     if (cell ==nil) {
         cell = (UITableViewCell *)[[[NSBundle mainBundle] loadNibNamed:@"FolderEditCell" owner:self options:nil] lastObject];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
         UIImageView *image = (UIImageView *)[cell viewWithTag:103];
         UILabel *folderLabel = (UILabel *)[cell viewWithTag:104];
-        if (isMove) {
+    if ([tableView isEqual:_tableView1]) {
             folderLabel.text = [folderNames objectAtIndex:indexPath.row];
             [image setImage:[UIImage imageNamed:@"folder_icon.png"]];
+    }
+    else
+    {
+        folderLabel.text = [totalTags objectAtIndex:indexPath.row];
+        [image setImage:[UIImage imageNamed:@"tag_icon.png"]];
+        if ([[recordTags objectForKey:folderLabel.text] boolValue] == YES) {
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
         }
         else {
-            folderLabel.text = [totalTags objectAtIndex:indexPath.row];
-            [image setImage:[UIImage imageNamed:@"tag_icon.png"]];
-            if ([[recordTags objectForKey:folderLabel.text] boolValue] == YES) {
-                cell.accessoryType = UITableViewCellAccessoryCheckmark;
-            }
-            else {
-                cell.accessoryType =UITableViewCellAccessoryNone;
-            }
+            cell.accessoryType =UITableViewCellAccessoryNone;
         }
+    }
     }
     return cell;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (isMove) {
+    if ([tableView isEqual:_tableView1]) {
         return folderNumber;
     }
     else {
@@ -113,14 +116,15 @@ extern NSUInteger folderNumber;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [_tableView cellForRowAtIndexPath:indexPath];
-    if (isMove) {
+    if ([tableView isEqual:_tableView1]) {
+        UITableViewCell *cell = [_tableView1 cellForRowAtIndexPath:indexPath];
         UILabel *newLabel = (UILabel *)[cell viewWithTag:104];
         NSString *newFolderName = newLabel.text;
         [persistence moveRecord:recordName fromOldFolder:folderName toNewFolder:newFolderName];
         [self.navigationController popViewControllerAnimated:YES];
     }
     else {
+        UITableViewCell *cell = [_tableView2 cellForRowAtIndexPath:indexPath];
         if (cell.accessoryType == UITableViewCellAccessoryCheckmark) {
             cell.accessoryType = UITableViewCellAccessoryNone;
             [recordTags removeObjectForKey:[totalTags objectAtIndex:indexPath.row]];
@@ -156,30 +160,6 @@ extern NSUInteger folderNumber;
         [persistence updateTag];
         [self.navigationController popViewControllerAnimated:YES];
     }
-}
-
-- (IBAction)tagRecord:(id)sender {
-    isMove = NO;
-    _titleLabel.text = @"Tag the record";
-    [self animation];
-    [_tableView reloadData];
-}
-
-- (IBAction)move:(id)sender {
-    isMove = YES;
-    _titleLabel.text = @"Click to move audio clip to new folder";
-    [self animation];
-    [_tableView reloadData];
-}
-
-- (void)animation {
-    [UIView animateWithDuration:0.3f delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^
-     {
-         //animation...
-         CGFloat positionY = _changeView.frame.size.height / 2;
-         CGFloat y = (_changeView.layer.position.y == positionY) ? 480+positionY:positionY;
-         [_changeView.layer setPosition:CGPointMake(_changeView.layer.position.x, y)];
-     }completion:nil];
 }
 
 @end
