@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DetailRecordController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface DetailRecordController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIView *changeView;
 

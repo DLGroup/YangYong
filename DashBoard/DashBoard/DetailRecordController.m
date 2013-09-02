@@ -139,14 +139,23 @@ extern NSUInteger folderNumber;
 }
 
 - (IBAction)remove:(id)sender {
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Delete" otherButtonTitles:nil];
+    actionSheet.actionSheetStyle = UIActionSheetStyleAutomatic;
+    [actionSheet showInView:self.view];
     
-    [persistence removeRecord:recordName from:folderName];
-    //...tag info remove
-    for (NSString *tagName in recordTags) {
-        [persistence removeRecord:record fromTag:tagName];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        [persistence removeRecord:recordName from:folderName];
+        //...tag info remove
+        for (NSString *tagName in recordTags) {
+            [persistence removeRecord:record fromTag:tagName];
+        }
+        [persistence updateTag];
+        [self.navigationController popViewControllerAnimated:YES];
     }
-    [persistence updateTag];
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)tagRecord:(id)sender {
