@@ -319,7 +319,8 @@
 }
 
 - (void)play:(id)sender
-{    
+{
+//    [NSTimer scheduledTimerWithTimeInterval:1.0/60.0 target:self selector:@selector(timeCaculate:) userInfo:nil repeats:YES];
     [_tableView beginUpdates];
     
     UIButton *btn=(UIButton*)sender;
