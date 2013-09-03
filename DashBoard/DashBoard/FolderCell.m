@@ -69,4 +69,9 @@ static UILabel *clipName, *configInfo;
     return arrowBtn;
 }
 
++ (UILabel *)timerLabel
+{
+    return clipName;
+}
+
 @end

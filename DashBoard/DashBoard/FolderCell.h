@@ -21,4 +21,6 @@
 + (UIButton *) playBtn;
 
 + (UIButton *) arrowBtn;
+
++ (UILabel *) timerLabel;
 @end

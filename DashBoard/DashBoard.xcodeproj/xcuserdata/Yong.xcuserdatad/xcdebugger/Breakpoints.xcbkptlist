@@ -190,12 +190,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DashBoard/FoldersViewController.m"
-         timestampString = "398836816.625953"
+         timestampString = "399867073.979582"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "331"
-         endingLineNumber = "331"
-         landmarkName = "-play:"
+         startingLineNumber = "261"
+         endingLineNumber = "261"
+         landmarkName = "-cellInsertingAnimation"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -203,12 +203,25 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DashBoard/FoldersViewController.m"
-         timestampString = "398835645.710354"
+         timestampString = "399867705.593887"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "253"
-         endingLineNumber = "253"
-         landmarkName = "-cellInsertingAnimation"
+         startingLineNumber = "319"
+         endingLineNumber = "319"
+         landmarkName = "-record:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "DashBoard/FoldersViewController.m"
+         timestampString = "399867705.593887"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "336"
+         endingLineNumber = "336"
+         landmarkName = "-caculateTimer:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

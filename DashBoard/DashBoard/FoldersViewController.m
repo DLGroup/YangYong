@@ -11,6 +11,7 @@
 #import "FolderCell.h"
 #import <QuartzCore/QuartzCore.h>
 #import <AVFoundation/AVFoundation.h>
+#import <UIKit/UIKit.h>
 #import "Persistence.h"
 #import "RecordInfo.h"
 
@@ -24,6 +25,11 @@
     NSMutableString *recordName;//the name of every sound file
     Persistence *persistence;
     RecordInfo *recordInfo;
+    
+    UILabel *timerLabel;
+    int min, sec, msec;
+    NSTimer *timer;
+
     
 // recorder and player and session
     AVAudioSession *session;
@@ -69,6 +75,7 @@
         inserting = TRUE;
         recordName = [[NSMutableString alloc] initWithFormat:@"%@,file:0", folderName];
         allRecordsConfigInfo = [[NSMutableArray alloc] init];
+        min = sec = msec = 0;
     }
     return self;
 }
@@ -171,6 +178,7 @@
     {
         [FolderCell setArrowBtnHidden:YES andPlayBtnHidden:YES andRedBtnHidden:NO];
         [FolderCell setClipName:[self recorderTimer] andColor:[UIColor redColor]];
+        timerLabel = [FolderCell timerLabel];
         [FolderCell setConfigInfo:[self recorderConfigInfo]];
     }
     else
@@ -271,9 +279,12 @@
     }completion:nil];
 }
 
-#pragma mark - Button click event 
-
+#pragma mark - Button click event
 - (IBAction)stop:(id)sender {
+    [timer invalidate];
+    msec = 0;
+    sec = 0;
+    min = 0;
 // ---------------------
     [allRecordsConfigInfo addObject:recordInfo];
     [persistence addRecord:recordInfo toFolder:folderName];
@@ -303,6 +314,7 @@
 }
 
 - (IBAction)record:(id)sender {
+    timer = [NSTimer scheduledTimerWithTimeInterval:1.0/60.0 target:self selector:@selector(caculateTimer:) userInfo:nil repeats:YES];
     inserting = TRUE;
     [self configAudio];
     [self recMaskAnimation];
@@ -318,9 +330,26 @@
     [self.navigationController pushViewController:detailRecord animated:YES];
 }
 
+- (void)caculateTimer:(id)sender
+{
+//    NSDate *now = [NSDate date];
+    msec++;
+    if (msec > 60) {
+        msec = 0;
+        sec++;
+        if (sec > 60) {
+            min++;
+            sec = 0;
+            if (min > 60) {
+                NSLog(@"long long time!!!");
+            }
+        }
+    }
+    timerLabel.text = [NSString stringWithFormat:@"%02d:%02d:%02d", min, sec,msec];
+}
+
 - (void)play:(id)sender
 {
-//    [NSTimer scheduledTimerWithTimeInterval:1.0/60.0 target:self selector:@selector(timeCaculate:) userInfo:nil repeats:YES];
     [_tableView beginUpdates];
     
     UIButton *btn=(UIButton*)sender;
