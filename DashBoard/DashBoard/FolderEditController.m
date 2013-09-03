@@ -108,6 +108,7 @@ extern NSUInteger folderNumber;
     isChangeName = YES;
     removeNum = indexPath.row;
     _folderName.delegate = self;
+    [_folderName becomeFirstResponder];
     //change name
     [self animation];
 }
@@ -117,6 +118,7 @@ extern NSUInteger folderNumber;
     editButton.enabled = NO;
     isChangeName = NO;
     _folderName.delegate =self;
+    [_folderName becomeFirstResponder];
     [self animation];
 }
 

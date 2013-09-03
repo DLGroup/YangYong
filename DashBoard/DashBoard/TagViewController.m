@@ -60,13 +60,6 @@
     }
 }
 
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 #pragma mark - Table view data source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -75,7 +68,6 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSLog(@"tagNames count:%i", [tagNames count]);
     return [tagNames count];
 }
 
@@ -117,6 +109,7 @@
     removeNum = indexPath.row;
     _tagName.delegate = self;
     [self animation];
+    [_tagName becomeFirstResponder];
 }
 
 - (void)add:(id)sender
@@ -124,6 +117,7 @@
     isChangeName = NO;
     _tagName.delegate = self;
     [self animation];
+    [_tagName becomeFirstResponder];
 }
 
 #pragma mark - TextField delegate
@@ -152,7 +146,6 @@
             }
         }
         if (isChangeName) {
-//            [persistence changeTagName:[tagNames objectAtIndex:removeNum] toNewName:textField.text];
             [persistence changeTagName:[tagNames objectAtIndex:removeNum] toNewName:textField.text];
             [tagNames removeObjectAtIndex:removeNum];
             [tagNames addObject:textField.text];
