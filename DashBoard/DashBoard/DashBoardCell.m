@@ -8,11 +8,6 @@
 
 #import "DashBoardCell.h"
 
-typedef enum
-{
-    DASHBOARDCELLBG = 101, ROWBG, ROWICON, DETAILARROW, ROWNAME, TEXTFIELD
-}DashBoardTag;
-
 static UIImageView *dashboardCellBG, *rowBG, *rowIcon;
 static UIButton *detailArrow;
 static UILabel *rowName;
@@ -25,7 +20,8 @@ static UITextField *textField;
     //init the cell
     static NSString *cellIdentifier = @"DashBoardCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    if (cell == nil) {
+    if (cell == nil)
+    {
         cell = (UITableViewCell *)[[[NSBundle mainBundle] loadNibNamed:@"DashBoardCell" owner:self options:nil] lastObject];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     //config the sub controls infomation

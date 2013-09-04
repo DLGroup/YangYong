@@ -7,25 +7,14 @@
 //
 
 #import "TagViewController.h"
-#import "Persistence.h"
 
 #define NAME 104
-
-@interface TagViewController ()
-{
-    NSUInteger removeNum;
-    Persistence *persistence;
-    BOOL isChangeName;
-}
-
-@end
 
 @implementation TagViewController
 
 @synthesize tableView = _tableView;
 @synthesize tagName = _tagName;
 @synthesize editView = _editView;
-//@synthesize tagNames = _tagNames;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -37,7 +26,6 @@
         tagNames = [[NSMutableArray alloc] init];
         persistence = [Persistence sharedPersistence];
         isChangeName = YES;
-        
     }
     return self;
 }
@@ -95,7 +83,6 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //去除tag的plist中相应的jianzhi对外还需要去除每一个对应record里面关于该键的信息
     [persistence removeTag:[tagNames objectAtIndex:indexPath.row]];
     [tagNames removeObjectAtIndex:indexPath.row];
     [_tableView reloadData];
@@ -165,7 +152,6 @@
 #pragma used by textFieldShouldReturn:
 //use c language to delete the blank beginning
 -(BOOL)isBlankFloderName:(UITextField *)textField{
-    
     //convert the textField.text from NSSttring* to char*
     char *str = (char *)[textField.text UTF8String];
     
@@ -182,11 +168,9 @@
         }
     }
     if (myStr==NULL) {
-        //        textField.text = @"";
         return TRUE;
     }
     else{
-        //convert myStr from char* to NSString and give it to textField.text
         textField.text = [NSString stringWithUTF8String:myStr];
         return FALSE;
     }
@@ -195,13 +179,11 @@
 - (void)animation{
     [UIView animateWithDuration:0.3f delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^
      {
-         //animation...
+         //animation
          CGFloat positionX = _editView.frame.size.width / 2;
          CGFloat x = (_editView.layer.position.x == positionX) ? 320+positionX:positionX;
          [_editView.layer setPosition:CGPointMake(x, _editView.layer.position.y)];
-         
      }completion:nil];
 }
-
 
 @end

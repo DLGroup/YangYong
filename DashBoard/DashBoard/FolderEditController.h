@@ -7,8 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Persistence.h"
+
+#define NAME 104
 
 @interface FolderEditController : UIViewController<UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
+{
+    NSUInteger removeNum;
+    Persistence *persistence;
+    BOOL isChangeName;
+    UIBarButtonItem *editButton;
+}
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UITextField *folderName;

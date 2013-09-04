@@ -6,10 +6,6 @@
 //  Copyright (c) 2013年 DiLunTech. All rights reserved.
 //
 
-
-//maybe will have problem method
-//- (void)addRecord:(RecordInfo *)record toFolder:(NSString *)folderName
-
 #import "Persistence.h"
 #import "RecordInfo.h"
 
@@ -59,7 +55,6 @@
 + (Persistence *)sharedPersistence
 {
     static Persistence *persistence = nil;
-    //the singleton mode need to know why
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         persistence = [[self alloc] initPersistence];
@@ -129,13 +124,11 @@
 - (void)addRecord:(RecordInfo *)record toFolder:(NSString *)folderName
 {
     recorders = [folders objectForKey:folderName];
-    // ---------------------------------------
     // archiver the data realized the NSCoding delegate
     NSMutableData *recordData = [[NSMutableData alloc] init];
     NSKeyedArchiver *ar = [[NSKeyedArchiver alloc] initForWritingWithMutableData:recordData];
     [ar encodeObject:record forKey:@"kRecord"];
     [ar finishEncoding];
-    // ----------------------------------------
     [recordData writeToFile:[[self dataFilePath] stringByAppendingPathComponent:[record recordName]] atomically:YES];
     [recorders setObject:recordData forKey:[record recordName]];
     [self updateFile];
@@ -155,7 +148,7 @@
     else
     {
         NSLog(@"the record infomation is not existed!");
-        return NO;//删除不成功！
+        return NO;
     }
     NSString *recordPath = [[self dataFilePath] stringByAppendingPathComponent:[[NSString alloc] initWithFormat:@"%@,record", recordName]];
     if ([defaultManager fileExistsAtPath:recordPath]) {
@@ -181,14 +174,12 @@
 
 - (RecordInfo *)getRecordByFolderName:(NSString *)folderName andRecordName: (NSString *)recordName
 {
-    // --------------------------------------
     // unarchiver the data to recordInfo
     NSMutableData *record = [[NSMutableData alloc] initWithContentsOfFile:[[self dataFilePath] stringByAppendingPathComponent:recordName]];
     RecordInfo *recordInfo=[[RecordInfo alloc] init];
     NSKeyedUnarchiver *uar = [[NSKeyedUnarchiver alloc] initForReadingWithData:record];
     recordInfo = [uar decodeObjectForKey:@"kRecord"];
     [uar finishDecoding];
-    // --------------------------------------
     return recordInfo;
 }
 
@@ -224,22 +215,18 @@
     //remove the tag used by tag name
     [tags removeObjectForKey:tagName];
     //remove the tag information from the RecordInfo
-    //...
     NSMutableArray *recordNames = [tags objectForKey:tagName];
     for (NSUInteger index=0; index<[recordNames count]; index++) {
         //the tags' object storage RecordInfo
         NSMutableData *recordData = [recordNames objectAtIndex:index];
-//maybe some problem here
         RecordInfo *recordInfo=[[RecordInfo alloc] init];
         NSKeyedUnarchiver *uar = [[NSKeyedUnarchiver alloc] initForReadingWithData:recordData];
         recordInfo = [uar decodeObjectForKey:@"kRecord"];
         [uar finishDecoding];
         NSLog(@"folder name:%@, and record name:%@", [recordInfo folderName], [recordInfo recordName]);
         [recordInfo removeTag:tagName];
-//        [self removeRecord:[theRecord recordName] from:[theRecord folderName]];
         [self addRecord:recordInfo toFolder:[recordInfo folderName]];
     }
-    //---
     [self updateTag];
 }
 

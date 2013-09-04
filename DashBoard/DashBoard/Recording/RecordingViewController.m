@@ -8,9 +8,7 @@
 
 #import "RecordingViewController.h"
 
-@interface RecordingViewController ()
-
-@end
+static NSString *className;
 
 @implementation RecordingViewController
 
@@ -19,26 +17,11 @@
     className = [[NSString alloc] initWithFormat:@"%@", name];
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-        self.title = className;
-        /*
-        UIBarButtonItem *left=[[UIBarButtonItem alloc] initWithTitle:@"DashBoard" style:UIBarButtonItemStyleBordered target:nil action:nil];
-        left.tintColor=[UIColor blackColor];
-        
-        self.navigationItem.leftBarButtonItem=left;*/
-
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    self.title = className;
 }
 
 - (void)didReceiveMemoryWarning

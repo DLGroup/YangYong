@@ -8,6 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+typedef enum{
+    DASHBOARDCELLBG = 101, ROWBG, ROWICON, DETAILARROW, ROWNAME, TEXTFIELD
+}DashBoardTag;
+
+
 @interface DashBoardCell : NSObject
 
 + (UITableViewCell *)tableView: (UITableView *)tableView dashBoardCellWithNibName:(NSString *)nibName;

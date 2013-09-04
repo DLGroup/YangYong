@@ -9,49 +9,8 @@
 #import "FoldersViewController.h"
 #include "DetailRecordController.h"
 #import "FolderCell.h"
-#import <QuartzCore/QuartzCore.h>
-#import <AVFoundation/AVFoundation.h>
-#import <UIKit/UIKit.h>
-#import "Persistence.h"
-#import "RecordInfo.h"
 
 #define CELLHEIGHT 67.0f
-
-@interface FoldersViewController ()
-{
-    NSString *folderName;
-    NSUInteger selectedSection; //show slider cell or not
-    BOOL inserting;               //insert cell animationly
-    NSMutableString *recordName;//the name of every sound file
-    Persistence *persistence;
-    RecordInfo *recordInfo;
-    
-    UILabel *timerLabel;
-    int min, sec, msec;
-    NSTimer *timer;
-
-    
-// recorder and player and session
-    AVAudioSession *session;
-    AVAudioRecorder *recorder;
-    AVAudioPlayer *player;
-//object is CellInfo Class,which will be config every cell initially
-}
-
-@property (strong, nonatomic) IBOutlet UITableView *tableView;
-
-//control the property enabled
-@property (weak, nonatomic) IBOutlet UIButton *recBtn;
-
-//animation property
-@property (strong, nonatomic) IBOutlet UIView *recAnimView;
-@property (strong, nonatomic) IBOutlet UIView *stopAndPauseAnimView;
-@property (strong, nonatomic) IBOutlet UIView *recMaskAnimView;
-
-- (IBAction)stop:(id)sender;
-- (IBAction)record:(id)sender;
-
-@end
 
 @implementation FoldersViewController
 
@@ -96,11 +55,9 @@
         NSLog(@"Error creating session: %@", [sessionError description]);
     else
         [session setActive:YES error:nil];
-    
-    //...singleton mode
+    //singleton mode
     persistence = [Persistence sharedPersistence];
     recordInfo = nil;
-
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -112,8 +69,6 @@
     NSLog(@"view will appear call");
     [self recAnimation];
     [self reloadRecords];
-//    NSLog(@"allRecordsconfiginfo %@",[allRecordsConfigInfo objectAtIndex:0]);
-
     [_tableView reloadData];
 }
 
@@ -125,34 +80,25 @@
     [_recMaskAnimView setHidden:YES];
     [_stopAndPauseAnimView.layer setPosition:CGPointMake(_stopAndPauseAnimView.layer.position.x, self.view.frame.size.height+_stopAndPauseAnimView.frame.size.height/2)];
     recordInfo = nil;
-//    persistence = nil;
-//    session = nil;
-//    player = nil;
-//    recorder = nil;
     allRecordsConfigInfo  = nil;
     allRecordsConfigInfo = [[NSMutableArray alloc] init];
     sectionCounts = 0;
-//    recordName = nil;
 }
 
 #pragma mark - Reload method according persistence data
 
 - (void) reloadRecords
 {
-    //persistence里面有两个NSMutableDictionary，此处使用的是次级dictionary
     NSMutableDictionary *records = [persistence getRecordsByFolderName:folderName];
     for (NSString *name in [records allKeys]) {
         RecordInfo *therecordInfo = [persistence getRecordByFolderName:folderName andRecordName:name];
         [allRecordsConfigInfo addObject:therecordInfo];
         sectionCounts++;
     }
-    
-    NSLog(@"voice count:%d", sectionCounts);
     inserting = FALSE;
 }
 
 #pragma mark - Table view data source
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return sectionCounts;
@@ -170,10 +116,8 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-// --------------------------------------
     [tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     UITableViewCell *cell = [FolderCell tableView:tableView folderCellWithNibName:@"FolderCell"];
-    
     if (indexPath.section==0 && inserting)
     {
         [FolderCell setArrowBtnHidden:YES andPlayBtnHidden:YES andRedBtnHidden:NO];
@@ -188,12 +132,9 @@
         [FolderCell setArrowBtnHidden:NO andPlayBtnHidden:NO andRedBtnHidden:YES];
         [[FolderCell playBtn] addTarget:self action:@selector(play:) forControlEvents:UIControlEventTouchUpInside];
         [[FolderCell arrowBtn] addTarget:self action:@selector(arrow:) forControlEvents:UIControlEventTouchUpInside];
-        //...
-        
         [FolderCell setClipName:[recordInfo recordName] andColor:[UIColor whiteColor]];
         [FolderCell setConfigInfo:[self recorderFileInfo]];
     }
-    
     if (indexPath.row==0)
         return cell;
     else
@@ -204,7 +145,6 @@
             cell1 = (UITableViewCell *)[[[NSBundle mainBundle] loadNibNamed:@"SliderCell" owner:self options:nil] lastObject];
             cell1.selectionStyle = UITableViewCellSelectionStyleNone;
         }
-        
         return cell1;
     }
 }
@@ -282,14 +222,10 @@
 #pragma mark - Button click event
 - (IBAction)stop:(id)sender {
     [timer invalidate];
-    msec = 0;
-    sec = 0;
-    min = 0;
-// ---------------------
+    msec = sec = min = 0;
     [allRecordsConfigInfo addObject:recordInfo];
     [persistence addRecord:recordInfo toFolder:folderName];
     [recorder stop];
-//    recorder = nil;
     NSString *playerName = [[NSMutableString alloc] initWithFormat:@"%@,file:%i,record", folderName, sectionCounts-1];
     NSFileManager *defaultManager;
     defaultManager = [NSFileManager defaultManager];
@@ -299,13 +235,11 @@
         NSLog(@"ERror creating player: %@", [playerError description]);
     }
     player.delegate = self;
-// ---------------------
     inserting = FALSE;
     [self recAnimation];
     [self recMaskAnimation];
     [self cellInsertingAnimation];
     [self stopAndPauseAnimation];
-    
 }
 
 - (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag
@@ -332,7 +266,6 @@
 
 - (void)caculateTimer:(id)sender
 {
-//    NSDate *now = [NSDate date];
     msec++;
     if (msec > 60) {
         msec = 0;
@@ -351,7 +284,6 @@
 - (void)play:(id)sender
 {
     [_tableView beginUpdates];
-    
     UIButton *btn=(UIButton*)sender;
     NSIndexPath *_path=nil;
     UITableViewCell *cell=(UITableViewCell*)[[btn superview] superview];
@@ -379,15 +311,8 @@
         if (player == nil) {
             NSLog(@"Error creating player: %@", [playerError description]);
         }
-        
     }
     [_tableView endUpdates];
-
-// ---------------------------
-    //set the player information
-    
-    
-    //    player.delegate =self;
     if (player ==nil) {
         [btn setBackgroundImage:[UIImage imageNamed:@"playlist_roundicon.png"] forState:UIControlStateNormal];
         return;
@@ -401,7 +326,6 @@
         [player play];
         [btn setImage:[UIImage imageNamed:@"playlist_roundicon.png"] forState:UIControlStateNormal];
     }
-// ---------------------------
 }
 
 #pragma mark - Sound data config
@@ -410,14 +334,10 @@
 {
     NSString *recorderName = [[NSMutableString alloc] initWithFormat:@"%@,file:%i,record", folderName, sectionCounts];
     recordName = [[NSMutableString alloc] initWithFormat:@"%@,file:%i", folderName, sectionCounts];
-
     recordInfo = [[RecordInfo alloc] initWithRecordName:recordName andFolderName:folderName];
-// ---------------------------
     recorder = [[AVAudioRecorder alloc] initWithURL:[self dataFilePathURL:recorderName] settings:nil error:nil];
     [recorder prepareToRecord];
     [recorder record];
-
-//    player = nil;
 }
 
 - (NSURL *)dataFilePathURL:(NSString *)fileName
@@ -429,7 +349,7 @@
 
 #pragma mark - Config information of record
 
-- (NSString*/*NSTimer*/)recorderTimer
+- (NSString *)recorderTimer
 {
     return @"timer";
 }

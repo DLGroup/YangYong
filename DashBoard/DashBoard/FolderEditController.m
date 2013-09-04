@@ -7,22 +7,9 @@
 //
 
 #import "FolderEditController.h"
-#import "Persistence.h"
 
 extern NSMutableArray *folderNames;
 extern NSUInteger folderNumber;
-
-#define NAME 104
-
-@interface FolderEditController ()
-{
-    NSUInteger removeNum;
-    Persistence *persistence;
-    BOOL isChangeName;
-    UIBarButtonItem *editButton;
-}
-
-@end
 
 @implementation FolderEditController
 
@@ -32,35 +19,19 @@ extern NSUInteger folderNumber;
 
 #pragma mark - Life cycle
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-        //...
-        self.title = @"Folder Edit";
-        removeNum = 0;
-        persistence = [Persistence sharedPersistence];
-        isChangeName = YES;
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    self.title = @"Folder Edit";
+    removeNum = 0;
+    persistence = [Persistence sharedPersistence];
+    isChangeName = YES;
+    _tableView.editing=YES;
+    
     editButton = [[UIBarButtonItem alloc] initWithTitle:@"add" style:UIBarButtonItemStyleBordered target:self action:@selector(add:)];
     editButton.tintColor = [UIColor blackColor];
     self.navigationItem.rightBarButtonItem = editButton;
-    
-    _tableView.editing=YES;
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Table view data source 
@@ -84,8 +55,7 @@ extern NSUInteger folderNumber;
         
         UILabel *folderName = (UILabel *)[cell viewWithTag:NAME];
         folderName.text = [folderNames objectAtIndex:indexPath.row];
-    }
-    
+    }    
     return cell;
 }
 
@@ -94,7 +64,6 @@ extern NSUInteger folderNumber;
     
 }
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
-    //...
     [persistence removeFolder:[folderNames objectAtIndex:indexPath.row]];
     [folderNames removeObjectAtIndex:indexPath.row];
     folderNumber--;
@@ -109,7 +78,6 @@ extern NSUInteger folderNumber;
     removeNum = indexPath.row;
     _folderName.delegate = self;
     [_folderName becomeFirstResponder];
-    //change name
     [self animation];
 }
 
@@ -134,8 +102,6 @@ extern NSUInteger folderNumber;
     return YES;
 }
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
-    //修改：textfield编辑事件返回前禁用其他事件ex：cell的响应
-    //可以添加一层蒙板效果
     [textField resignFirstResponder];
     if( ![self isBlankFloderName:textField] )
     {
@@ -154,9 +120,7 @@ extern NSUInteger folderNumber;
         }
         else{
             folderNumber++;
-            //folder name
             [folderNames addObject:textField.text];
-            // add the new foleder to the storage file,folders.plist
             [persistence addFolder:textField.text];
             editButton.enabled = YES;
         }
@@ -171,10 +135,8 @@ extern NSUInteger folderNumber;
 #pragma used by textFieldShouldReturn:
 //use c language to delete the blank beginning
 -(BOOL)isBlankFloderName:(UITextField *)textField{
-    
     //convert the textField.text from NSSttring* to char*
     char *str = (char *)[textField.text UTF8String];
-    
     //the algorithm about delete blank beginning char
     int len = strlen(str);
     if (len <=0 ) {
@@ -188,7 +150,6 @@ extern NSUInteger folderNumber;
         }
     }
     if (myStr==NULL) {
-        //        textField.text = @"";
         return TRUE;
     }
     else{
@@ -201,11 +162,9 @@ extern NSUInteger folderNumber;
 - (void)animation{
     [UIView animateWithDuration:0.3f delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^
      {
-         //animation...
          CGFloat positionX = _editView.frame.size.width / 2;
          CGFloat x = (_editView.layer.position.x == positionX) ? 320+positionX:positionX;
          [_editView.layer setPosition:CGPointMake(x, _editView.layer.position.y)];
-         
      }completion:nil];
 }
 @end

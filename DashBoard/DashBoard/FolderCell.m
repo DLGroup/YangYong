@@ -8,10 +8,6 @@
 
 #import "FolderCell.h"
 
-typedef enum{
-    ARROWBTN = 101, PLAYBTN, CLIPNAME, CONFIGINFO, REDBTN
-}FolderCellTag;
-
 static UIButton *arrowBtn, *playBtn, *redBtn;
 static UILabel *clipName, *configInfo;
 
@@ -27,7 +23,6 @@ static UILabel *clipName, *configInfo;
         //init the cell
         cell = (UITableViewCell *)[[[NSBundle mainBundle] loadNibNamed:@"FolderCell" owner:self options:nil] lastObject];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
         //init the sub controls
         arrowBtn = (UIButton *)[cell viewWithTag:ARROWBTN];
         playBtn = (UIButton *)[cell viewWithTag:PLAYBTN];
@@ -55,7 +50,6 @@ static UILabel *clipName, *configInfo;
 
 + (void)setConfigInfo:(NSString *)configInformation
 {
-    //copy method ok or not ?
     configInfo.text = [configInformation copy];
 }
 

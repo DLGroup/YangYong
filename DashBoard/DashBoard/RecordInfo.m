@@ -23,7 +23,6 @@
         _folderName = folderName;
         _recordName = recordName;
         _tagNames = [[NSMutableArray alloc] init];
-        
     }
     return self;
 }
@@ -32,7 +31,6 @@
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
-
     self = [super init];
     if (self) {
         _folderName = [aDecoder decodeObjectForKey:@"_folderName"];

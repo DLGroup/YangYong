@@ -8,6 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+typedef enum{
+    ARROWBTN = 101, PLAYBTN, CLIPNAME, CONFIGINFO, REDBTN
+}FolderCellTag;
+
+
 @interface FolderCell : NSObject
 
 + (UITableViewCell *)tableView: (UITableView *)tableView folderCellWithNibName:(NSString *)nibName;

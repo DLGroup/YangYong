@@ -17,7 +17,6 @@ NSMutableArray *folderNames;
 {
     NSMutableDictionary *folders;
     NSMutableDictionary *recorders;
-    //...maybe tags later
     NSMutableDictionary *tags;
 }
 

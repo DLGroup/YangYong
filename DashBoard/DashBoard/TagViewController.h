@@ -7,13 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Persistence.h"
 
 @interface TagViewController : UIViewController<UITableViewDataSource, UITableViewDelegate,UITextFieldDelegate>
 {
     NSMutableArray *tagNames;
+    NSUInteger removeNum;
+    Persistence *persistence;
+    BOOL isChangeName;
 }
-
-//@property (strong, nonatomic) NSMutableArray *tagNames;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UITextField *tagName;

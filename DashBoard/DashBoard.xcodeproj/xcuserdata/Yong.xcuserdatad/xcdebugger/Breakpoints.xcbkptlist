@@ -7,77 +7,12 @@
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "DashBoard/FolderEditController.m"
-         timestampString = "398251656.509184"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "107"
-         endingLineNumber = "107"
-         landmarkName = "-tableView:didSelectRowAtIndexPath:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "DashBoard/FolderEditController.m"
-         timestampString = "398251656.509184"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "108"
-         endingLineNumber = "108"
-         landmarkName = "-tableView:didSelectRowAtIndexPath:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "DashBoard/FolderEditController.m"
-         timestampString = "399888533.49692"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "138"
-         endingLineNumber = "138"
-         landmarkName = "-textFieldShouldReturn:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "DashBoard/DetailRecordController.m"
-         timestampString = "399803152.486141"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "41"
-         endingLineNumber = "41"
-         landmarkName = "-initWithNibName:bundle:folderName:andRecordName:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "DashBoard/DetailRecordController.m"
-         timestampString = "399803152.486141"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "52"
-         endingLineNumber = "52"
-         landmarkName = "-viewDidLoad"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
          filePath = "DashBoard/TagViewController.m"
-         timestampString = "399889666.256385"
+         timestampString = "399954638.532495"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "154"
-         endingLineNumber = "154"
+         startingLineNumber = "141"
+         endingLineNumber = "141"
          landmarkName = "-textFieldShouldReturn:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -86,11 +21,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DashBoard/Persistence.m"
-         timestampString = "398837839.613952"
+         timestampString = "399952897.014486"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "211"
-         endingLineNumber = "211"
+         startingLineNumber = "202"
+         endingLineNumber = "202"
          landmarkName = "-updateFile"
          landmarkType = "5">
       </FileBreakpoint>
@@ -99,24 +34,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DashBoard/TagViewController.m"
-         timestampString = "399889463.949606"
+         timestampString = "399954638.532495"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "108"
-         endingLineNumber = "108"
-         landmarkName = "-tableView:didSelectRowAtIndexPath:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "DashBoard/TagViewController.m"
-         timestampString = "399889463.949606"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "148"
-         endingLineNumber = "148"
+         startingLineNumber = "135"
+         endingLineNumber = "135"
          landmarkName = "-textFieldShouldReturn:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -125,11 +47,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DashBoard/TagViewController.m"
-         timestampString = "399889666.256385"
+         timestampString = "399954638.532495"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "148"
-         endingLineNumber = "148"
+         startingLineNumber = "135"
+         endingLineNumber = "135"
          landmarkName = "-textFieldShouldReturn:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -138,11 +60,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DashBoard/Persistence.m"
-         timestampString = "398837839.613952"
+         timestampString = "399952897.014486"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "248"
-         endingLineNumber = "248"
+         startingLineNumber = "235"
+         endingLineNumber = "235"
          landmarkName = "-changeTagName:toNewName:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -151,11 +73,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DashBoard/Persistence.m"
-         timestampString = "398837839.613952"
+         timestampString = "399952897.014486"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "228"
-         endingLineNumber = "228"
+         startingLineNumber = "218"
+         endingLineNumber = "218"
          landmarkName = "-removeTag:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -164,11 +86,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DashBoard/Persistence.m"
-         timestampString = "398837839.613952"
+         timestampString = "399952897.014486"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "253"
-         endingLineNumber = "253"
+         startingLineNumber = "240"
+         endingLineNumber = "240"
          landmarkName = "-changeTagName:toNewName:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -177,11 +99,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DashBoard/Persistence.m"
-         timestampString = "398837839.613952"
+         timestampString = "399952897.014486"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "252"
-         endingLineNumber = "252"
+         startingLineNumber = "239"
+         endingLineNumber = "239"
          landmarkName = "-changeTagName:toNewName:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -190,24 +112,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DashBoard/FoldersViewController.m"
-         timestampString = "399867073.979582"
+         timestampString = "399954638.532495"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "261"
-         endingLineNumber = "261"
-         landmarkName = "-cellInsertingAnimation"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "DashBoard/FoldersViewController.m"
-         timestampString = "399867705.593887"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "319"
-         endingLineNumber = "319"
+         startingLineNumber = "253"
+         endingLineNumber = "253"
          landmarkName = "-record:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -216,11 +125,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DashBoard/FoldersViewController.m"
-         timestampString = "399867705.593887"
+         timestampString = "399954638.532495"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "336"
-         endingLineNumber = "336"
+         startingLineNumber = "269"
+         endingLineNumber = "269"
          landmarkName = "-caculateTimer:"
          landmarkType = "5">
       </FileBreakpoint>

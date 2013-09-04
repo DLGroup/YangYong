@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-static NSString *className;
-
 @interface RecordingViewController : UIViewController
 
 + (void)setClassName: (NSString *)name;

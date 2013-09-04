@@ -6,14 +6,12 @@
 //  Copyright (c) 2013 DiLunTech. All rights reserved.
 //
 
-#import <QuartzCore/QuartzCore.h>
 #import "RootViewController.h"
 #import "RecordingViewController.h"
 #import "FoldersViewController.h"
 #import "FolderEditController.h"
 #import "TagViewController.h"
 #import "DashBoardCell.h"
-#import "Persistence.h"
 
 extern NSMutableArray *folderNames;
 extern NSUInteger folderNumber;
@@ -23,16 +21,6 @@ extern NSUInteger folderNumber;
 #define CELLHEIGHT 67.0F
 #define FOLDERVIEW 101
 
-
-
-@interface RootViewController ()
-{
-    //...
-    //------
-    Persistence *persistence;
-}
-
-@end
 
 @implementation RootViewController
 
@@ -48,7 +36,6 @@ extern NSUInteger folderNumber;
         self.title = @"Dash Board";
         folderNumber = 0;
         folderNames = [[NSMutableArray alloc] init];
-        
     }
     return self;
 }
@@ -60,14 +47,14 @@ extern NSUInteger folderNumber;
     
     UIBarButtonItem *back=[[UIBarButtonItem alloc] initWithTitle:@"DashBoard" style:UIBarButtonItemStyleBordered target:nil action:nil];
     back.tintColor=[UIColor blackColor];
-
     self.navigationItem.backBarButtonItem=back;
-    
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navigation_bar_background"] forBarMetrics:UIBarMetricsDefault];
+    
     UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithTitle:@"edit" style:UIBarButtonItemStyleBordered target:self action:@selector(edit:)];
     editButton.tintColor = [UIColor blackColor];
     self.navigationItem.rightBarButtonItem = editButton;
-    // reload data by the storaged file while every time push in
+    
+    
     persistence = [Persistence sharedPersistence];
     [self reloadFolders];
 }
@@ -76,14 +63,9 @@ extern NSUInteger folderNumber;
 {
     [_tableView reloadData];
 }
-- (void)viewWillAppear:(BOOL)animated
-{
-    
-}
 
 - (void)edit:(id)sender
 {
-    //....
     FolderEditController *editFolder = [[FolderEditController alloc] initWithNibName:@"FolderEditController" bundle:nil];   
     [self.navigationController pushViewController:editFolder animated:YES];
 }
@@ -138,28 +120,19 @@ extern NSUInteger folderNumber;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0) {
+    if (indexPath.section == 0)
+    {
             [RecordingViewController setClassName:@"Recording"];
         RecordingViewController *recordingViewController = [[RecordingViewController alloc] initWithNibName:@"RecordingViewController" bundle:nil];
         
         
         [self.navigationController pushViewController:recordingViewController animated:YES];
     }
-    else if (indexPath.section == 1 && indexPath.row != folderNumber) {
-        // need to remove the setFolderName method and
-        // realize the initial method newly
-        // 后期完善：实现长按出现folder edit界面，点击进入下一级导航
+    else if (indexPath.section == 1 && indexPath.row != folderNumber)
+    {
         NSString *folderName = [[NSMutableString alloc] initWithFormat:@"%@", [folderNames objectAtIndex:indexPath.row]];
         FoldersViewController *foldersViewController = [[FoldersViewController alloc] initWithNibName:@"FoldersViewController" bundle:nil folderName:folderName];
         [self.navigationController pushViewController:foldersViewController animated:YES];
-        // ...
-//        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-//        UITapGestureRecognizer *pushInFolder = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(push:)];
-////        pushInFolder.cancelsTouchesInView = NO;
-//        [cell addGestureRecognizer:pushInFolder];
-//        UILongPressGestureRecognizer *folderEdit = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(edit:)];
-//        [cell addGestureRecognizer:folderEdit];
-
     }
     else if(indexPath.section == 2) {
         TagViewController *tagController = [[TagViewController alloc] initWithNibName:@"TagViewController" bundle:nil];
@@ -217,8 +190,6 @@ extern NSUInteger folderNumber;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
-    //修改：textfield编辑事件返回前禁用其他事件ex：cell的响应
-    //可以添加一层蒙板效果
     [textField resignFirstResponder];
     if( ![self isBlankFloderName:textField] )
     {
@@ -231,9 +202,7 @@ extern NSUInteger folderNumber;
             }
         }
         folderNumber++;
-        //folder name
         [folderNames addObject:textField.text];
-        // add the new foleder to the storage file,folders.plist
         [persistence addFolder:textField.text];
     }
     [self.tableView reloadData];
@@ -244,10 +213,8 @@ extern NSUInteger folderNumber;
 #pragma used by textFieldShouldReturn:
 //use c language to delete the blank beginning
 -(BOOL)isBlankFloderName:(UITextField *)textField{
-    
     //convert the textField.text from NSSttring* to char*
     char *str = (char *)[textField.text UTF8String];
-    
     //the algorithm about delete blank beginning char
     int len = strlen(str);
     if (len <=0 ) {
@@ -261,7 +228,6 @@ extern NSUInteger folderNumber;
         }
     }
     if (myStr==NULL) {
-//        textField.text = @"";
         return TRUE;
     }
     else{

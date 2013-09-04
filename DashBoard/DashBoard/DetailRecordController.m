@@ -10,30 +10,14 @@
 #import "FoldersViewController.h"
 #import "Persistence.h"
 
-
 extern NSMutableArray *folderNames;
 extern NSUInteger folderNumber;
-
-@interface DetailRecordController ()
-{
-    NSString *folderName;
-    NSString *recordName;
-    Persistence *persistence;
-    NSMutableArray *totalTags;
-    NSMutableDictionary *recordTags;
-    BOOL isMove;
-    RecordInfo *record;
-
-}
-
-@end
 
 @implementation DetailRecordController
 
 @synthesize tableView1 = _tableView1;
 @synthesize tableView2 = _tableView2;
 @synthesize titleLabel = _titleLabel;
-@synthesize changeView = _changeView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil folderName:(NSString *)ifolderName andRecordName:(NSString *)irecordName
 {
@@ -153,7 +137,7 @@ extern NSUInteger folderNumber;
 {
     if (buttonIndex == 0) {
         [persistence removeRecord:recordName from:folderName];
-        //...tag info remove
+        //tag info remove
         for (NSString *tagName in recordTags) {
             [persistence removeRecord:record fromTag:tagName];
         }

@@ -10,17 +10,11 @@
 #import <AVFoundation/AVFoundation.h>
 
 @interface RecordInfo : NSObject <NSCoding>
-{
-    //tags realized lalter
-    //......
-//    NSMutableDictionary *tags;    
-}
 
 @property (strong, nonatomic) NSString *folderName;
 @property (strong, nonatomic) NSString *recordName;
 @property (strong, nonatomic) NSMutableArray *tagNames;
 
-//...init method
 - (id)initWithRecordName:(NSString *)recordName andFolderName: (NSString *)folderName;
 
 - (void)addTag:(NSString *)tagName;
