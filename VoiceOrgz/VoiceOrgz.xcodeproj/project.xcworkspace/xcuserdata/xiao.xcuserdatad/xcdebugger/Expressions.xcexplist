@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "-[DLPlayer initWithAudioFileURL:]:DLPlayer.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "_state">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[VoiceMainView play:]:VoiceMainView.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "global.player.state">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>
